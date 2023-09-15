@@ -18,4 +18,4 @@ screen, which contains the following OPTIONS :
  4. [4] Exit
 
     ------------------------------------
-    ! ![image](https://github.com/Shinoruba/CCPROG3-MCO/assets/121850764/e2ee90de-1aa7-4ec7-919b-66cb8b0f061f)
+ ![image](https://github.com/Shinoruba/CCPROG3-MCO/assets/121850764/e2ee90de-1aa7-4ec7-919b-66cb8b0f061f)
