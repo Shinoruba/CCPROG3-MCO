@@ -18,4 +18,5 @@ screen, which contains the following OPTIONS :
  4. [4] Exit
 
     ------------------------------------
-![image](https://i.ytimg.com/vi/Ux5cQbO_ybw/maxresdefault.jpg(
+      ## Insha'Allah we get a 4.0 🙏
+![image](https://i.ytimg.com/vi/Ux5cQbO_ybw/maxresdefault.jpg)
