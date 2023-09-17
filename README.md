@@ -1,6 +1,6 @@
 # CCPROG3-MCO
 
-## CCPROG3 AY 2023-24 T1 // MAJOR COURSE OUTPUT
+## Object-Oriented Programming AY 2023-24 T1 // MAJOR COURSE OUTPUT
 
 ### INTRODUCTION
 A role-playing game (RPG) is a game genre in which players advance through a main story
@@ -18,4 +18,5 @@ screen, which contains the following OPTIONS :
  4. [4] Exit
 
     ------------------------------------
- ![image](https://github.com/Shinoruba/CCPROG3-MCO/assets/121850764/e2ee90de-1aa7-4ec7-919b-66cb8b0f061f)
+      ## Insha'Allah we get a 4.0 🙏
+![image](https://i.ytimg.com/vi/Ux5cQbO_ybw/maxresdefault.jpg)
