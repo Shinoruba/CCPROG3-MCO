@@ -1,6 +1,6 @@
 # CCPROG3-MCO
 
-## CCPROG3 AY 2023-24 T1 // MAJOR COURSE OUTPUT
+## Object-Oriented Programming AY 2023-24 T1 // MAJOR COURSE OUTPUT
 
 ### INTRODUCTION
 A role-playing game (RPG) is a game genre in which players advance through a main story
