@@ -12,7 +12,7 @@ public class Creature
     private String name, type, family;
     private int evolutionLevel, health;   
 
-    // Constructor
+    
     /**
      * 
      * @param name name of the creature, obviously
@@ -20,15 +20,60 @@ public class Creature
      * @param family family of the creature, where it belongs to
      * @param evolutionLevel the evolution level of the creature, ranging from 1 to 3
      * @param health the health of the creature
-     */
+     */ // Constructor
     public Creature(String name, String type, String family, int evolutionLevel, int health)
     {
         this.name=name;
         this.type=type;
         this.family=family;
         this.evolutionLevel=evolutionLevel;
+        // if(evolutionLevel >= 1 && evolutionLevel <= 3)
+        // {
+        //     this.evolutionLevel=evolutionLevel;
+        // } else              let's say we have evolution level 234, doesn't exist so this should handle it no (?)
+        // {
+        //     this.evolutionLevel=evolutionLevel; ???
+        // or should it be:
+        //     this.evolutionLevel=1; ???
+        // }
         this.health=100; // Idk if its 100
     }
-}
 
-    // Methods ( to be implemented )
+
+    // Methods ( i am implementing, is it correct? idk )
+    public String getName()
+    {
+        return name;
+    }
+
+    public String getType()
+    {
+        return type;
+    }
+
+    public String getFamily()
+    {
+        return family;
+    }
+
+    public int getEvolutionLevel()
+    {
+        return evolutionLevel;
+    }
+
+    public int getHealth()
+    {
+        return health;
+    }
+
+    public void setHealth(int health)
+    {
+        this.health = health;
+    }
+
+    public String TheDebugger() // we use this to display the creature infromation
+    {
+        return "Name: " + name + "\nType " + type + "\nFamily: " + family + "\nEvolution: " + evolutionLevel +
+                "\nHealth: " + health;
+    }
+}
