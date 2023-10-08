@@ -26,21 +26,21 @@ public class Creature
         this.name=name;
         this.type=type;
         this.family=family;
-        this.evolutionLevel=evolutionLevel;
-        // if(evolutionLevel >= 1 && evolutionLevel <= 3)
-        // {
-        //     this.evolutionLevel=evolutionLevel;
-        // } else              let's say we have evolution level 234, doesn't exist so this should handle it no (?)
-        // {
-        //     this.evolutionLevel=evolutionLevel; ???
-        // or should it be:
-        //     this.evolutionLevel=1; ???
-        // }
+       
+        // Condition to make sure EL is correctly initialized
+        if(evolutionLevel >= 1 && evolutionLevel <= 3)
+        {
+            this.evolutionLevel=evolutionLevel;
+        } 
+        else           
+        {
+            this.evolutionLevel=1;
+        }
         this.health=100; // Idk if its 100
     }
 
 
-    // Methods ( i am implementing, is it correct? idk )
+    // Methods ( must i explain these lol )
     public String getName()
     {
         return name;
@@ -71,7 +71,8 @@ public class Creature
         this.health = health;
     }
 
-    public String TheDebugger() // we use this to display the creature infromation
+    // toString() method returns string representation of object
+    public String ToString() // we use this to display the creature infromation
     {
         return "Name: " + name + "\nType " + type + "\nFamily: " + family + "\nEvolution: " + evolutionLevel +
                 "\nHealth: " + health;
