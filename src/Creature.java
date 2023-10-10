@@ -72,7 +72,7 @@ public class Creature
     }
 
     // toString() method returns string representation of object
-    public String ToString() // we use this to display the creature infromation
+    public String toString() // we use this to display the creature infromation
     {
         return "Name: " + name + "\nType " + type + "\nFamily: " + family + "\nEvolution: " + evolutionLevel +
                 "\nHealth: " + health;

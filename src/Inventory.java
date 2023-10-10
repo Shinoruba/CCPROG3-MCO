@@ -1,5 +1,3 @@
-import java.util.*; // too lazy, might as well get everything lmao
-
 
 /**
  *  @code Inventory class manages the user's collection of creatures
@@ -8,6 +6,8 @@ import java.util.*; // too lazy, might as well get everything lmao
  *  @author JSTP8330
  *  @version 1.0
  */
+
+import java.util.*; // too lazy, might as well get everything lmao
 public class Inventory 
 {
     private ArrayList<Creature> creatures;  // stores creatures
