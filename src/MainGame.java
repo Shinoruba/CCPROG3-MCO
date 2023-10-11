@@ -4,13 +4,12 @@
  * 
  *  @author Shinoruba
  *  @author JSTP8330
- *  @version 1.0
+ *  @version 2.0
  */
 
 import java.util.ArrayList;
-import java.util.Random;
+// import java.util.Random;
 import java.util.Scanner;
-
 
 public class MainGame
 {
@@ -31,7 +30,8 @@ public class MainGame
                     selectStarterCreature();
                     while (true) {
                         displayMainMenu();
-                        int choice = getUserChoice(1,4); // only 1,2,3,4 options are allowed
+                        InputHandler handler = new InputHandler();
+                        int choice = handler.getUserChoice(1,4); // only 1,2,3,4 options are allowed
                         
                         switch (choice) 
                         {
@@ -49,9 +49,9 @@ public class MainGame
                 private void selectStarterCreature() 
                 {
                     // 3 El1 starter creatures, one from each element!
-                    Creature starterCreature1 = new Creature("Strawander", "Fire", "Elemental", 1, 100);
-                    Creature starterCreature2 = new Creature("Squirpie", "Water", "Aquatic", 1, 100);
-                    Creature starterCreature3 = new Creature("Brownisaur", "Grass", "Plant", 1, 100);
+                    Creature starterCreature1 = new Creature("Strawander", "Fire", "A", 1, 100);
+                    Creature starterCreature2 = new Creature("Squirpie", "Water", "G", 1, 100);
+                    Creature starterCreature3 = new Creature("Brownisaur", "Grass", "D", 1, 100);
                     // Display a list of EL1 creatures for the user to choose from
                         ArrayList<Creature> el1Creatures = new ArrayList<>();
                             el1Creatures.add(starterCreature1);
@@ -63,8 +63,8 @@ public class MainGame
                         {
                             System.out.println((i + 1) + ": " + el1Creatures.get(i).getName());
                         }
-
-                        int starterChoice = getUserChoice(1, el1Creatures.size());
+                        InputHandler handler = new InputHandler();
+                        int starterChoice = handler.getUserChoice(1, el1Creatures.size());
                         Creature starterCreature = el1Creatures.get(starterChoice - 1);
 
                         // Add the starter creature to the inventory and set it as active
@@ -83,16 +83,7 @@ public class MainGame
         System.out.println("3: Evolve Creature");
         System.out.println("4: Exit Game");
     }
-    private int getUserChoice(int min, int max) // Used in startGame() method
-    {
-        int choice;
-        do 
-        {
-            System.out.print("Enter your choice: ");
-            choice = scan.nextInt();
-        }   while(choice < min || choice > max); // simple condition to check if input is valid
-            return choice;
-    }
+
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         // 1. View Inventory
             private void viewInventory() 
@@ -156,13 +147,13 @@ public class MainGame
                 System.out.println("Exploring the area...");
                 
                 // Display the current area screen with the player's position marked.
-                displayArea();
+                currentArea.displayArea();
 
                 // Allow the player to move within the area.
                 Direction moveDirection = getPlayerMoveDirection();
                 
                 // Check if the player encounters a creature.
-                if(shouldEncounterCreature()) 
+                if(currentArea.shouldEncounterCreature()) 
                 {
                     handleCreatureEncounter();
                 }
@@ -185,33 +176,7 @@ public class MainGame
             }
 
     
-    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            // Display the current area screen.
-            private void displayArea() // Used in exploreArea() method
-            {
-                int currentX = currentArea.getCurrentX();
-                int currentY = currentArea.getCurrentY();
-                
-                System.out.println("Current Area:");
-
-                for (int i = 0; i < currentArea.getTiles().length; i++) 
-                {
-                    for (int j = 0; j < currentArea.getTiles()[i].length; j++) 
-                    {
-                        if (i == currentX && j == currentY) 
-                        {
-                            System.out.print("P "); // Player's position
-                        } 
-                        else 
-                        {
-                            System.out.print(". "); // Empty tile
-                        }
-                    }
-                    System.out.println(); // Move to the next row
-                }
-            }
-
-           
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~       
             // Get the player's move direction (UP, DOWN, LEFT, or RIGHT).
                 public enum Direction 
                     {
@@ -271,18 +236,52 @@ public class MainGame
                 }
             }
 
-            private boolean shouldEncounterCreature() // Used in exploreArea() method
-            {
-                Random random = new Random();
-                int chance = random.nextInt(100); // Generate a random number between 0 and 99
+            // private boolean shouldEncounterCreature() // Used in exploreArea() method
+            // {
+            //     Random random = new Random();
+            //     int chance = random.nextInt(100); // Generate a random number between 0 and 99
 
-                return chance < 40; // 40% chance to encounter a creature
-            }
+            //     return chance < 40; // 40% chance to encounter a creature
+            // }
 
             private void handleCreatureEncounter() // Used in exploreArea() method
             {
                 System.out.println("You've encountered a creature!");
                 // Implement logic for creature encounter (battling, capturing, etc.) here
+
+                // Get the user's active creature
+                Creature userCreature = currentInventory.getActiveCreature();
+
+                // Get the encountered enemy creature
+                Creature enemyCreature = currentArea.determineEncounteredCreature();
+
+                // Start a battle between the user's creature and the enemy creature
+                BattlePhase battle = new BattlePhase(userCreature, enemyCreature);
+                battle.startBattle();
+
+                // Check the outcome of the battle
+                if (userCreature.getHealth() <= 0) 
+                {
+                    System.out.println("Your creature was defeated!");
+        // Handle the defeat of the user's creature (e.g., return to a safe location)
+                } 
+                else if (enemyCreature.getHealth() <= 0) 
+                {
+                    // Enemy creature was defeated
+                    System.out.println("You defeated the enemy creature!");
+
+                    // Implement the capture mechanism here
+                    if (battle.tryCaptureCreature(enemyCreature)) 
+                    {
+                        System.out.println("You've successfully captured " + enemyCreature.getName() + "!");
+                        currentInventory.addCreature(enemyCreature); // Add the captured creature to the user's inventory
+                    } 
+                    else 
+                    {
+                        System.out.println("Capture attempt failed.");
+                    }
+                }
+                // Handle other possible outcomes (e.g., user's creature running away, enemy creature running away)
             }
 
 

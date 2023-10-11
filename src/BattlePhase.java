@@ -4,7 +4,7 @@
  * 
  *  @author Shinoruba
  *  @author JSTP8330
- *  @version 1.0
+ *  @version 1.2
  */
 import java.util.Random;
 
@@ -102,7 +102,7 @@ public class BattlePhase
         return false; // No type advantage
     }
 
-    private boolean tryCaptureCreature(Creature enemyCreature) 
+    public boolean tryCaptureCreature(Creature enemyCreature) 
     {
         int catchRate = calculateCatchRate(enemyCreature.getHealth());
         int randomValue = random.nextInt(100); // Generate a random value between 0 and 99

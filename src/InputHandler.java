@@ -8,14 +8,29 @@
  */
 
 
-
+ 
 import java.util.Scanner;
 
 public class InputHandler 
 {
     static Scanner scan = new Scanner(System.in);
 
-        public static int getUserChoice(int min, int max) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public int getUserChoice(int min, int max) 
         {
             int choice;
             do 
@@ -27,5 +42,10 @@ public class InputHandler
 
             return choice;
         }
+
+        
+
+
+
 }
 
