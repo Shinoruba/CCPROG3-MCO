@@ -16,7 +16,7 @@ public class MainGame
     private Inventory currentInventory;
     private Area currentArea;
     private Scanner scan;
-
+    InputHandler handler = new InputHandler();
     public MainGame() 
     {
         currentInventory = new Inventory();
@@ -30,7 +30,7 @@ public class MainGame
                     selectStarterCreature();
                     while (true) {
                         displayMainMenu();
-                        InputHandler handler = new InputHandler();
+                        
                         int choice = handler.getUserChoice(1,4); // only 1,2,3,4 options are allowed
                         
                         switch (choice) 
@@ -63,7 +63,6 @@ public class MainGame
                         {
                             System.out.println((i + 1) + ": " + el1Creatures.get(i).getName());
                         }
-                        InputHandler handler = new InputHandler();
                         int starterChoice = handler.getUserChoice(1, el1Creatures.size());
                         Creature starterCreature = el1Creatures.get(starterChoice - 1);
 
@@ -114,6 +113,7 @@ public class MainGame
                         {
                             Creature creature = allCreatures.get(i);
                             System.out.println((i + 1) + ": " + creature.getName() + " (EL" + creature.getEvolutionLevel() + ")");
+                            System.out.println("\n");
                         }
                     }
 
@@ -164,7 +164,8 @@ public class MainGame
 
         // 3. Evolve the Creature    
             private void evolveCreature() 
-            {    
+            {
+                System.out.println("Not yet implemented! Please wait for future updates and patches.");    
             }
 
         // 4. Exit the game bye bye aaauughhh please help me
@@ -236,54 +237,40 @@ public class MainGame
                 }
             }
 
-            // private boolean shouldEncounterCreature() // Used in exploreArea() method
-            // {
-            //     Random random = new Random();
-            //     int chance = random.nextInt(100); // Generate a random number between 0 and 99
+    private void handleCreatureEncounter() 
+    {
+    System.out.println("You've encountered a creature!");
 
-            //     return chance < 40; // 40% chance to encounter a creature
-            // }
+    // Get the user's active creature
+    Creature userCreature = currentInventory.getActiveCreature();
 
-            private void handleCreatureEncounter() // Used in exploreArea() method
-            {
-                System.out.println("You've encountered a creature!");
-                // Implement logic for creature encounter (battling, capturing, etc.) here
+    // Get the encountered enemy creature
+    Creature enemyCreature = currentArea.determineEncounteredCreature();
 
-                // Get the user's active creature
-                Creature userCreature = currentInventory.getActiveCreature();
+    // Start a battle between the user's creature and the enemy creature
+    BattlePhase battle = new BattlePhase(userCreature, enemyCreature);
+    battle.startBattle();
 
-                // Get the encountered enemy creature
-                Creature enemyCreature = currentArea.determineEncounteredCreature();
+    // Check the outcome of the battle
+    if (userCreature.getHealth() <= 0) {
+        System.out.println("Your creature was defeated!");
 
-                // Start a battle between the user's creature and the enemy creature
-                BattlePhase battle = new BattlePhase(userCreature, enemyCreature);
-                battle.startBattle();
+        // Handle the defeat of the user's creature
+        currentInventory.removeCreature(userCreature); // Remove the defeated creature from the inventory
+        System.out.println("You've been returned to a safe location.");
+    } else if (enemyCreature.getHealth() <= 0) {
+        // Enemy creature was defeated
+        System.out.println("You defeated the enemy creature!");
 
-                // Check the outcome of the battle
-                if (userCreature.getHealth() <= 0) 
-                {
-                    System.out.println("Your creature was defeated!");
-        // Handle the defeat of the user's creature (e.g., return to a safe location)
-                } 
-                else if (enemyCreature.getHealth() <= 0) 
-                {
-                    // Enemy creature was defeated
-                    System.out.println("You defeated the enemy creature!");
-
-                    // Implement the capture mechanism here
-                    if (battle.tryCaptureCreature(enemyCreature)) 
-                    {
-                        System.out.println("You've successfully captured " + enemyCreature.getName() + "!");
-                        currentInventory.addCreature(enemyCreature); // Add the captured creature to the user's inventory
-                    } 
-                    else 
-                    {
-                        System.out.println("Capture attempt failed.");
-                    }
-                }
-                // Handle other possible outcomes (e.g., user's creature running away, enemy creature running away)
-            }
-
+        // Implement the capture mechanism here
+        if (battle.tryCaptureCreature(enemyCreature)) {
+            System.out.println("You've successfully captured " + enemyCreature.getName() + "!");
+            currentInventory.addCreature(enemyCreature); // Add the captured creature to the user's inventory
+        } else {
+            System.out.println("Capture attempt failed.");
+        }
+    }
+}
 
     // wow just look how clean main method looks
     public static void main(String[] args) 

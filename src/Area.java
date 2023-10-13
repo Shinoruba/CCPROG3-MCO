@@ -91,14 +91,14 @@ public class Area
         {
             List<Creature> possibleCreatures = new ArrayList<>();
 
-            possibleCreatures.add(new Creature("Strawander", "Fire", "Family A", 1, 50));
-            possibleCreatures.add(new Creature("Chocowool", "Fire", "Family B", 1, 100));
+            // possibleCreatures.add(new Creature("Strawander", "Fire", "Family A", 1, 50));
+            // possibleCreatures.add(new Creature("Chocowool", "Fire", "Family B", 1, 100));
             possibleCreatures.add(new Creature("Parfwit", "Fire", "Family C", 1, 100));
-            possibleCreatures.add(new Creature("Brownisaur", "Grass", "Family D", 1, 100));
-            possibleCreatures.add(new Creature("Frubat", "Grass", "Family E", 1, 100));
+            // possibleCreatures.add(new Creature("Brownisaur", "Grass", "Family D", 1, 100));
+            // possibleCreatures.add(new Creature("Frubat", "Grass", "Family E", 1, 100));
             possibleCreatures.add(new Creature("Malts", "Grass", "Family F", 1, 100));
-            possibleCreatures.add(new Creature("Squirpie", "Water", "Family G", 1, 100));
-            possibleCreatures.add(new Creature("Chocolite", "Water", "Family H", 1, 100));
+            // possibleCreatures.add(new Creature("Squirpie", "Water", "Family G", 1, 100));
+            // possibleCreatures.add(new Creature("Chocolite", "Water", "Family H", 1, 100));
             possibleCreatures.add(new Creature("Oshacone", "Water", "Family I", 1, 100));
             possibleCreatures.add(new Creature("Cubillas", "skrr", "Family L", 1, 100));
 
