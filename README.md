@@ -63,7 +63,7 @@ a. Develop the logic for encountering wild creatures - [x]
 
 b. Implement area exploration mechanics and encounters - [x]
 
-c. Implement random creature encounters in different areas - [x]
+c. Implement random creature encounters in different areas - []
 
 ## Milestone 7: Final Testing and Polishing - []
 
