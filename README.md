@@ -35,51 +35,37 @@ b. Initialize the project with the necessary files and folders - [x]
 
 c. Set up the development environment and dependencies - [x]  
 
-## Milestone 2: Basic Game Framework - []
+## Milestone 2: Basic Game Framework - [x]
 
-a. Implement the main game loop - []
+a. Implement the main game loop - [x]
 
-b. Create the player class with attributes and methods - []
+b. Create the player class with attributes and methods - [x]
 
-c. Develop the basic game menu structure - []
+c. Develop the basic game menu structure - [x]
 
-## Milestone 3: Starter Creature Selection - []
+## Milestone 3: Starter Creature Selection - [x]
 
-a. Implement the selection of an EL1 starter creature - []
+a. Implement the selection of an EL1 starter creature - [x]
 
-b. Add the chosen starter creature to the player's inventory - []
+b. Add the chosen starter creature to the player's inventory - [x]
 
-c. Set the starter creature as the active creature - []
+c. Set the starter creature as the active creature - [x]
 
-## Milestone 4: Game Menu Options - []
+## Milestone 4: Game Menu Options - [x]
 
-a. Implement the "View Inventory" option - []
+a. Implement the "View Inventory" option - [x]
 
-b. Implement the "Explore an Area" option - []
+b. Implement the "Explore an Area" option - [x] (2d array/row system to be implemented)
 
-## Milestone 5: Encounter Wild Creatures - []
+## Milestone 5: Encounter Wild Creatures - [x]
 
-a. Develop the logic for encountering wild creatures - []
+a. Develop the logic for encountering wild creatures - [x]
 
-b. Implement random creature encounters in different areas - []
+b. Implement area exploration mechanics and encounters - [x]
 
-## Milestone 6: Creature Evolution - []
+c. Implement random creature encounters in different areas - [x]
 
-a. Design the creature evolution system - []
-
-b. Implement the "Evolve Creature" option - []
-
-c. Define the conditions and outcomes for creature evolution - []
-
-## Milestone 7: Game Flow and Progression - []
-
-a. Create the game's storyline and progression - []
-
-b. Implement area exploration mechanics and encounters - []
-
-c. Add game events and challenges - []
-
-## Milestone 8: Final Testing and Polishing - []
+## Milestone 7: Final Testing and Polishing - []
 
 a. Conduct comprehensive testing of the game's features and mechanics - []
 
