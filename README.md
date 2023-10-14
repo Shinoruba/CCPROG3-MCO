@@ -22,7 +22,7 @@ screen, which contains the following OPTIONS :
 
 ### PROGRAM MILESTONES
 
-The progrma milestones to keep track of the progress made for the machine project. This 
+The program milestones to keep track of the progress made for the machine project. This 
 includes the necessary programming tasks, such as coding the machine's control software, 
 implementing user interfaces, and conducting thorough software testing to ensure functionality 
 and performance. This maybe changed as necessary especially as the project goes through.
@@ -63,7 +63,7 @@ a. Develop the logic for encountering wild creatures - [x]
 
 b. Implement area exploration mechanics and encounters - [x]
 
-c. Implement random creature encounters in different areas - []
+c. Implement random creature encounters in different areas - [x]
 
 ## Milestone 7: Final Testing and Polishing - []
 
