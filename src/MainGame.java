@@ -17,6 +17,7 @@ public class MainGame
     private Area currentArea;
     private Creature encounteredEnemy;
     private int encounteredEnemyHealth = 50;
+    
     private Scanner scan;
     InputHandler handler = new InputHandler();
     public MainGame() 

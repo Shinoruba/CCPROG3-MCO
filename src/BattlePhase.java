@@ -24,16 +24,17 @@ public class BattlePhase
         this.currentInventory = currentInventory; // Initialize the currentInventory here.
     }
 
-    // public void setCurrentInventory(Inventory currentInventory) {
-    //     this.currentInventory = currentInventory;
-    // }
+    public void setCurrentInventory(Inventory currentInventory) {
+        this.currentInventory = currentInventory;
+    }
 
     public void startBattle(int enemyHealth) 
     {
         System.out.println("=============================");
         System.out.println("Battle starts!");
         int actionsRemaining = maxActions;
-        while (actionsRemaining > 0) 
+        boolean shouldEndBattle = false; // Flag to indicate if the battle should end
+        while (actionsRemaining > 0 && !shouldEndBattle) 
         {
             displayBattleStatus();// Display available actions
             System.out.println("---");
@@ -82,7 +83,10 @@ public class BattlePhase
                     // User chose to catch
                     if (tryCaptureCreature(enemyCreature)) {
                         System.out.println("You've successfully captured " + enemyCreature.getName() + "!");
+                        System.out.println("=============\n");
+
                         currentInventory.addCreature(enemyCreature); // Add the captured creature to the user's inventory
+                        shouldEndBattle = true; // Set the flag to end the battle
                     } else {
                         System.out.println("Capture attempt failed.");
                     }
@@ -91,7 +95,8 @@ public class BattlePhase
                 case 4:
                     // User chose to run away
                     System.out.println("You ran away from the battle!");
-                    return; // Exit the battle
+                    shouldEndBattle = true; // Set the flag to end the battle
+                break;
                 default:
                     System.out.println("Invalid choice. Please select a valid action (1-4).");
             }
@@ -175,8 +180,5 @@ private void displayInventory() {
     private int calculateCatchRate(int enemyHealth) 
     {
         return 40 + 50 - enemyHealth;
-    }
-
-    public void setCurrentInventory(Inventory currentInventory2) {
     }
 }
