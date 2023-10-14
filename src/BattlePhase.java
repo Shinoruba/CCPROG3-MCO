@@ -30,33 +30,25 @@ public class BattlePhase
 
     public void startBattle(int enemyHealth) 
     {
+        System.out.println("=============================");
         System.out.println("Battle starts!");
         int actionsRemaining = maxActions;
-
-                            //     // Set the enemy creature's health only when initially encountered
-                            //     if(enemyCreature.getHealth() == 0) {
-                            //     enemyCreature.setHealth(50);
-                            // }
-
-                                // enemyCreature.setHealth(50);
         while (actionsRemaining > 0) 
         {
-            displayBattleStatus();
+            displayBattleStatus();// Display available actions
+            System.out.println("---");
             System.out.println("Actions remaining: " + actionsRemaining);
+            System.out.println("Choose an action:");
+            System.out.println("1: Attack");
+            System.out.println("2: Swap Creature");
+            System.out.println("3: Try to Capture");
+            System.out.println("4: Run Away");
 
             // Allow the user to choose an action
             InputHandler handler = new InputHandler();
             int userChoice = handler.getUserChoice(1,4);
 
             switch (userChoice) {
-                // case 1:
-                //     // User chose to attack
-                //     int userDamage = calculateUserDamage(userCreature, enemyCreature);
-                //     enemyCreature.setHealth(enemyCreature.getHealth() - userDamage);
-                //     System.out.println(userCreature.getName() + " attacks " + enemyCreature.getName() + " for " + userDamage + " damage.");
-                //     actionsRemaining--;
-                //     break;
-
                 case 1:
                 int userDamage = calculateUserDamage(userCreature, enemyCreature);
                 enemyCreature.setHealth(enemyCreature.getHealth() - userDamage);
@@ -135,7 +127,7 @@ private void displayInventory() {
 
     private void displayBattleStatus() 
     {
-        System.out.println("Battle Status:");
+        System.out.println("\nBattle Status:");
         System.out.println(userCreature.getName() + " (Health: " + userCreature.getHealth() + ")");
         System.out.println(enemyCreature.getName() + " (Health: " + enemyCreature.getHealth() + ")");
     }

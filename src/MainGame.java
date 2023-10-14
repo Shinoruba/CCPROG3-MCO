@@ -129,27 +129,37 @@ public class MainGame
                     }
 
                 // Check if there are multiple creatures in the inventory
-                    if(allCreatures.size()>1) 
-                    {
-                        System.out.print("Do you want to change your active creature? (y/n): ");
-                        String choice = scan.next().toLowerCase();
-
-                        if(choice.equals("y")) 
-                        {
-                            System.out.print("Enter the number of the creature you want to set as active: ");
-                            int creatureNumber = scan.nextInt();
-
-                            if(creatureNumber >= 1 && creatureNumber <= allCreatures.size()) 
-                            {
-                                currentInventory.setActiveCreature(allCreatures.get(creatureNumber - 1));
-                                System.out.println("Active creature set to: " + allCreatures.get(creatureNumber - 1).getName());
-                            } 
-                            else 
-                            {
-                                System.out.println("Invalid creature number.");
+                if (allCreatures.size() > 1) {
+                    System.out.print("Do you want to change your active creature? (y/n): ");
+                    String choice = scan.next().toLowerCase();
+                
+                    while (!choice.equals("y") && !choice.equals("n")) {
+                        System.out.print("Invalid input. Please enter 'y' or 'n': ");
+                        choice = scan.next().toLowerCase();
+                    }
+                
+                    if (choice.equals("y")) {
+                        System.out.print("Enter the number of the creature you want to set as active: ");
+                        int creatureNumber;
+                
+                        while (true) {
+                            try {
+                                creatureNumber = scan.nextInt();
+                                if (creatureNumber >= 1 && creatureNumber <= allCreatures.size()) {
+                                    break; // Valid input, exit the loop
+                                } else {
+                                    System.out.print("Invalid creature number. Enter a valid number: ");
+                                }
+                            } catch (java.util.InputMismatchException e) {
+                                System.out.print("Invalid input. Please enter a valid number: ");
+                                scan.next(); // Consume the invalid input
                             }
                         }
+                
+                        currentInventory.setActiveCreature(allCreatures.get(creatureNumber - 1));
+                        System.out.println("Active creature set to: " + allCreatures.get(creatureNumber - 1).getName());
                     }
+                }
             }
 
         // 2. Explore Area
@@ -216,24 +226,43 @@ public class MainGame
                     {
                         UP,DOWN,LEFT,RIGHT;
                     }
-            private Direction getPlayerMoveDirection() // Used in exploreArea() method
-            {
-                while (true) 
-                {
-                    System.out.print("Enter your move (UP/DOWN/LEFT/RIGHT): ");
-                    String input = scan.next().toUpperCase();
-
-                    try 
-                    {
-                        Direction direction = Direction.valueOf(input);
-                        return direction;
-                    } 
-                    catch (IllegalArgumentException e) 
-                    {
-                        System.out.println("Invalid direction. Please enter UP, DOWN, LEFT, or RIGHT.");
+                    private Direction getPlayerMoveDirection() {
+                        while (true) {
+                            System.out.print("Enter your move (UP/DOWN/LEFT/RIGHT): ");
+                            String input = scan.next().toUpperCase();
+                    
+                            int currentX = currentArea.getCurrentX();
+                            int currentY = currentArea.getCurrentY();
+                    
+                            if (input.equals("UP")) {
+                                if (currentX > 0) {
+                                    return Direction.UP;
+                                } else {
+                                    System.out.println("You cannot move UP from here.");
+                                }
+                            } else if (input.equals("DOWN")) {
+                                if (currentX < currentArea.getTiles().length - 1) {
+                                    return Direction.DOWN;
+                                } else {
+                                    System.out.println("You cannot move DOWN from here.");
+                                }
+                            } else if (input.equals("LEFT")) {
+                                if (currentY > 0) {
+                                    return Direction.LEFT;
+                                } else {
+                                    System.out.println("You cannot move LEFT from here.");
+                                }
+                            } else if (input.equals("RIGHT")) {
+                                if (currentY < currentArea.getTiles()[currentX].length - 1) {
+                                    return Direction.RIGHT;
+                                } else {
+                                    System.out.println("You cannot move RIGHT from here.");
+                                }
+                            } else {
+                                System.out.println("Invalid direction. Please enter UP, DOWN, LEFT, or RIGHT.");
+                            }
+                        }
                     }
-                }
-            } 
 
             // Update the player's position based on the move direction.
             private void updatePlayerPosition(Direction moveDirection) // Used in exploreArea() method
