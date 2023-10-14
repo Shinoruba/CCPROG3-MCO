@@ -36,7 +36,11 @@ public class Creature
         {
             this.evolutionLevel=1;
         }
-        this.health=100; // Idk if its 100
+        this.health=health; // Idk if its 100
+    }
+
+    public Creature(String name, String type, String family, int evolutionLevel) {
+        this(name, type, family, evolutionLevel, 100); // Default HP is set to 100
     }
 
 

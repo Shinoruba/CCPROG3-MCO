@@ -6,18 +6,21 @@
  *  @version 1.0
  */
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+// import java.util.ArrayList;
+// import java.util.List;
+// import java.util.Random;
 public class Area
 {
    private int[][] tiles; // 2D array of area's tiles
+   private int[][] enemyCreatureHP; // 2D array to store enemy creature HP
    private int currentX, currentY; // Current X and Y position 
    private int i, j; // Indexes of tiles
 
     public Area(int nRows, int nCols)
     {
         tiles = new int[nRows][nCols];
+        enemyCreatureHP = new int[nRows][nCols];
         currentX = 0; // starting X position
         currentY = 0; // starting Y position
 
@@ -26,6 +29,7 @@ public class Area
             for(j=0; j<nCols; j++)
             {
                 tiles[i][j]=0;
+                enemyCreatureHP[i][j] = 50;
             }
         }
     }
@@ -91,16 +95,16 @@ public class Area
         {
             List<Creature> possibleCreatures = new ArrayList<>();
 
-            // possibleCreatures.add(new Creature("Strawander", "Fire", "Family A", 1, 50));
-            // possibleCreatures.add(new Creature("Chocowool", "Fire", "Family B", 1, 100));
-            possibleCreatures.add(new Creature("Parfwit", "Fire", "Family C", 1, 100));
-            // possibleCreatures.add(new Creature("Brownisaur", "Grass", "Family D", 1, 100));
-            // possibleCreatures.add(new Creature("Frubat", "Grass", "Family E", 1, 100));
-            possibleCreatures.add(new Creature("Malts", "Grass", "Family F", 1, 100));
-            // possibleCreatures.add(new Creature("Squirpie", "Water", "Family G", 1, 100));
-            // possibleCreatures.add(new Creature("Chocolite", "Water", "Family H", 1, 100));
-            possibleCreatures.add(new Creature("Oshacone", "Water", "Family I", 1, 100));
-            possibleCreatures.add(new Creature("Cubillas", "skrr", "Family L", 1, 100));
+            // possibleCreatures.add(new Creature("Strawander", "Fire", "Family A", 1, enemyCreatureHP[currentX][currentY]));
+            // possibleCreatures.add(new Creature("Chocowool", "Fire", "Family B", 1, enemyCreatureHP[currentX][currentY]));
+            // possibleCreatures.add(new Creature("Parfwit", "Fire", "Family C", 1, enemyCreatureHP[currentX][currentY]));
+            // possibleCreatures.add(new Creature("Brownisaur", "Grass", "Family D", 1, enemyCreatureHP[currentX][currentY]));
+            // possibleCreatures.add(new Creature("Frubat", "Grass", "Family E", 1, enemyCreatureHP[currentX][currentY]));
+            // possibleCreatures.add(new Creature("Malts", "Grass", "Family F", 1, enemyCreatureHP[currentX][currentY]));
+            // possibleCreatures.add(new Creature("Squirpie", "Water", "Family G", 1, enemyCreatureHP[currentX][currentY]));
+            // possibleCreatures.add(new Creature("Chocolite", "Water", "Family H", 1, enemyCreatureHP[currentX][currentY]));
+            // possibleCreatures.add(new Creature("Oshacone", "Water", "Family I", 1, enemyCreatureHP[currentX][currentY]));
+            possibleCreatures.add(new Creature("Cubillas", "skrr", "Family L", 1, 50));
 
             Random random = new Random();
             int randomIndex = random.nextInt(possibleCreatures.size());

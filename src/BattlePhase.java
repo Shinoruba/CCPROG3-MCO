@@ -18,20 +18,27 @@ public class BattlePhase
     private int maxActions = 3; // Max number of actions per battle
     private Random random = new Random();
 
-    public BattlePhase(Creature userCreature, Creature enemyCreature)
-    {
+    public BattlePhase(Creature userCreature, Creature enemyCreature, Inventory currentInventory) {
         this.userCreature = userCreature;
         this.enemyCreature = enemyCreature;
+        this.currentInventory = currentInventory; // Initialize the currentInventory here.
     }
 
-    
+    // public void setCurrentInventory(Inventory currentInventory) {
+    //     this.currentInventory = currentInventory;
+    // }
 
-    public void startBattle() 
+    public void startBattle(int enemyHealth) 
     {
         System.out.println("Battle starts!");
         int actionsRemaining = maxActions;
 
-        enemyCreature.setHealth(50);
+                            //     // Set the enemy creature's health only when initially encountered
+                            //     if(enemyCreature.getHealth() == 0) {
+                            //     enemyCreature.setHealth(50);
+                            // }
+
+                                // enemyCreature.setHealth(50);
         while (actionsRemaining > 0) 
         {
             displayBattleStatus();
@@ -126,36 +133,6 @@ private void displayInventory() {
     }
 }
 
-// private int getUserSwapChoice() {
-//     try (Scanner scan = new Scanner(System.in)) {
-//         while (true) {
-//             System.out.print("Enter the number of the creature you want to swap with: ");
-//             int choice = scan.nextInt();
-//             if (choice >= 1 && choice <= currentInventory.getSize()) {
-//                 return choice;
-//             } else {
-//                 System.out.println("Invalid choice. Please select a valid creature to swap with.");
-//             }
-//         }
-//     }
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
     private void displayBattleStatus() 
     {
         System.out.println("Battle Status:");
@@ -206,5 +183,8 @@ private void displayInventory() {
     private int calculateCatchRate(int enemyHealth) 
     {
         return 40 + 50 - enemyHealth;
+    }
+
+    public void setCurrentInventory(Inventory currentInventory2) {
     }
 }
