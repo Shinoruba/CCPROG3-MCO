@@ -4,7 +4,7 @@
  * 
  *  @author Shinoruba
  *  @author JSTP8330
- *  @version 1.0
+ *  @version 1.1
  */
 
 import java.util.*; // too lazy, might as well get everything lmao
@@ -16,7 +16,7 @@ public class Inventory
     public Inventory()
     {
         creatures = new ArrayList<>();
-        activeCreature = null;              // sett active creature to null for now
+        activeCreature = null;              // set active creature to null for now
     }
 
         public void addCreature(Creature creature)
@@ -24,7 +24,7 @@ public class Inventory
             creatures.add(creature);        // uses .add() method to add creature to arraylist
             if(creature == activeCreature)
             {
-                setActiveCreature(null);
+                setActiveCreature(creature);
             }
         }
 

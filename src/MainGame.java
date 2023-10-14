@@ -6,18 +6,15 @@
  *  @author JSTP8330
  *  @version 2.0
  */
-
 import java.util.ArrayList;
-// import java.util.Random;
 import java.util.Scanner;
 
-public class MainGame
+public class MainGame 
 {
     private Inventory currentInventory;
     private Area currentArea;
     private Creature encounteredEnemy;
-    private int encounteredEnemyHealth = 50;
-    
+
     private Scanner scan;
     InputHandler handler = new InputHandler();
     public MainGame() 
@@ -27,7 +24,8 @@ public class MainGame
         scan = new Scanner(System.in);
     }
 
-    public Inventory getCurrentInventory() {
+    public Inventory getCurrentInventory() 
+    {
         return currentInventory;
     }
 
@@ -40,12 +38,13 @@ public class MainGame
                     BattlePhase battlePhase = new BattlePhase(userCreature, encounteredEnemy, currentInventory);
                     battlePhase.setCurrentInventory(currentInventory);
 
-                    while (true) {
+                    while(true) 
+                    {
                         displayMainMenu();
                         
                         int choice = handler.getUserChoice(1,4); // only 1,2,3,4 options are allowed
                         
-                        switch (choice) 
+                        switch(choice) 
                         {
                             case 1: viewInventory();    break;
                             case 2: exploreArea();      break;
@@ -130,28 +129,36 @@ public class MainGame
                     }
 
                 // Check if there are multiple creatures in the inventory
-                if (allCreatures.size() > 1) {
+                if (allCreatures.size()>1) 
+                {
                     System.out.print("Do you want to change your active creature? (y/n): ");
                     String choice = scan.next().toLowerCase();
                 
-                    while (!choice.equals("y") && !choice.equals("n")) {
+                    while(!choice.equals("y") && !choice.equals("n")) 
+                    {
                         System.out.print("Invalid input. Please enter 'y' or 'n': ");
                         choice = scan.next().toLowerCase();
                     }
                 
-                    if (choice.equals("y")) {
+                    if(choice.equals("y")) 
+                    {
                         System.out.print("Enter the number of the creature you want to set as active: ");
                         int creatureNumber;
                 
-                        while (true) {
-                            try {
+                        while(true) 
+                        {
+                            try{
                                 creatureNumber = scan.nextInt();
-                                if (creatureNumber >= 1 && creatureNumber <= allCreatures.size()) {
+                                if(creatureNumber >= 1 && creatureNumber <= allCreatures.size()) 
+                                {
                                     break; // Valid input, exit the loop
-                                } else {
+                                } 
+                                else 
+                                {
                                     System.out.print("Invalid creature number. Enter a valid number: ");
                                 }
-                            } catch (java.util.InputMismatchException e) {
+                            } catch (java.util.InputMismatchException e) 
+                            {
                                 System.out.print("Invalid input. Please enter a valid number: ");
                                 scan.next(); // Consume the invalid input
                             }
@@ -163,48 +170,47 @@ public class MainGame
                 }
             }
 
-        // 2. Explore Area
-            private void exploreArea() 
-            {
-                System.out.println("Exploring the area...");
-                
-                // Display the current area screen with the player's position marked.
-                currentArea.displayArea();
+// Update the exploreArea method
+private void exploreArea() {
+    System.out.println("Exploring the area...");
 
-                // Allow the player to move within the area.
-                Direction moveDirection = getPlayerMoveDirection();
-                encounteredEnemyHealth = 50;// Initialize the enemy's health
-                // Check if the player encounters a creature.
-                if (currentArea.shouldEncounterCreature()) {
-                    if (encounteredEnemy == null) {
-                        encounteredEnemy = currentArea.determineEncounteredCreature();
-                         
-                    }
-        
-                    System.out.println("You've encountered a creature!");
-                    Creature userCreature = currentInventory.getActiveCreature();
-                    BattlePhase battle = new BattlePhase(userCreature, encounteredEnemy, currentInventory);
-                    battle.startBattle(encounteredEnemyHealth);
-        
-                    if (userCreature.getHealth() <= 0) {
-                        System.out.println("Your creature was defeated!");
-                        currentInventory.removeCreature(userCreature);
-                        System.out.println("You've been returned to a safe location.");
-                    } else if (encounteredEnemyHealth <= 0) {
-                        System.out.println("You defeated the enemy creature!");
-        
-                        if (battle.tryCaptureCreature(encounteredEnemy)) {
-                            System.out.println("You've successfully captured " + encounteredEnemy.getName() + "!");
-                            currentInventory.addCreature(encounteredEnemy);
-                        } else {
-                            System.out.println("Capture attempt failed.");
-                        }
-                    }
-                }
-                
-                // Update the player's position based on the move direction.
-                updatePlayerPosition(moveDirection);
-            }
+    // Display the current area screen with the player's position marked.
+    currentArea.displayArea();
+
+    // Allow the player to move within the area.
+    Direction moveDirection = getPlayerMoveDirection();
+
+        // BANE OF MY EXISTENCE ->  Good: Enemy can be randomized now / Bad: Enemy HP can go back to 50, and can go against same creature captured.
+        encounteredEnemy = null;
+
+    if (encounteredEnemy == null) {
+        encounteredEnemy = currentArea.determineEncounteredCreature();
+        encounteredEnemy.getHealth();
+    }
+
+    System.out.println("You've encountered a creature!");
+
+    Creature userCreature = currentInventory.getActiveCreature();
+    BattlePhase battle = new BattlePhase(userCreature, encounteredEnemy, currentInventory);
+    battle.startBattle(encounteredEnemy.getHealth()); // Use enemy's actual health
+
+    if (userCreature.getHealth() <= 0) {
+        System.out.println("Your creature was defeated!");
+        currentInventory.removeCreature(userCreature);
+        System.out.println("You've been returned to a safe location.");
+    } else if (encounteredEnemy.getHealth() <= 0) {
+        System.out.println("You defeated the enemy creature!");
+        if (battle.tryCaptureCreature(encounteredEnemy)) {
+            System.out.println("You've successfully captured " + encounteredEnemy.getName() + "!");
+            currentInventory.addCreature(encounteredEnemy);
+        } else {
+            System.out.println("Capture attempt failed.");
+        }
+    }
+
+    // Update the player's position based on the move direction.
+    updatePlayerPosition(moveDirection);
+}
 
         // 3. Evolve the Creature    
             private void evolveCreature() 
@@ -215,7 +221,7 @@ public class MainGame
         // 4. Exit the game bye bye aaauughhh please help me
             private void exitGame() 
             {
-                System.out.println("Exiting the game. Give us a good grade thank  you!");
+                System.out.println("Exiting the game. Give us a decent grade for effort :( thank  you!");
                 scan.close();
                 System.exit(0); // method terminates JVM bye bye bye bye bye bye bye bye help me
             }
@@ -227,36 +233,57 @@ public class MainGame
                     {
                         UP,DOWN,LEFT,RIGHT;
                     }
-                    private Direction getPlayerMoveDirection() {
-                        while (true) {
+                    private Direction getPlayerMoveDirection() 
+                    {
+                        while(true) 
+                        {
                             System.out.print("Enter your move (UP/DOWN/LEFT/RIGHT): ");
                             String input = scan.next().toUpperCase();
                     
                             int currentX = currentArea.getCurrentX();
                             int currentY = currentArea.getCurrentY();
                     
-                            if (input.equals("UP")) {
-                                if (currentX > 0) {
+                            if(input.equals("UP")) 
+                            {
+                                if(currentX > 0) 
+                                {
                                     return Direction.UP;
-                                } else {
+                                } 
+                                else 
+                                {
                                     System.out.println("You cannot move UP from here.");
                                 }
-                            } else if (input.equals("DOWN")) {
-                                if (currentX < currentArea.getTiles().length - 1) {
+                            } 
+                            else if(input.equals("DOWN"))
+                            {
+                                if(currentX < currentArea.getTiles().length - 1) 
+                                {
                                     return Direction.DOWN;
-                                } else {
+                                } 
+                                else 
+                                {
                                     System.out.println("You cannot move DOWN from here.");
                                 }
-                            } else if (input.equals("LEFT")) {
-                                if (currentY > 0) {
+                            } 
+                            else if(input.equals("LEFT")) 
+                            {
+                                if(currentY > 0) 
+                                {
                                     return Direction.LEFT;
-                                } else {
+                                } 
+                                else 
+                                {
                                     System.out.println("You cannot move LEFT from here.");
                                 }
-                            } else if (input.equals("RIGHT")) {
-                                if (currentY < currentArea.getTiles()[currentX].length - 1) {
+                            } 
+                            else if(input.equals("RIGHT")) 
+                            {
+                                if(currentY < currentArea.getTiles()[currentX].length - 1) 
+                                {
                                     return Direction.RIGHT;
-                                } else {
+                                } 
+                                else 
+                                {
                                     System.out.println("You cannot move RIGHT from here.");
                                 }
                             } else {
@@ -271,35 +298,37 @@ public class MainGame
                 int currentX = currentArea.getCurrentX();
                 int currentY = currentArea.getCurrentY();
 
-                switch (moveDirection) 
+                switch(moveDirection) 
                 {
                     case UP:
-                        if (currentX > 0) 
+                        if(currentX > 0) 
                         {
                             currentArea.setCurrentX(currentX - 1);
                         }
-                        break;
+                    break;
+
                     case DOWN:
-                        if (currentX < currentArea.getTiles().length - 1) 
+                        if(currentX < currentArea.getTiles().length - 1) 
                         {
                             currentArea.setCurrentX(currentX + 1);
                         }
-                        break;
+                    break;
+
                     case LEFT:
-                        if (currentY > 0) 
+                        if(currentY > 0) 
                         {
                             currentArea.setCurrentY(currentY - 1);
                         }
-                        break;
+                    break;
+
                     case RIGHT:
-                        if (currentY < currentArea.getTiles()[currentX].length - 1) 
+                        if(currentY < currentArea.getTiles()[currentX].length - 1) 
                         {
                             currentArea.setCurrentY(currentY + 1);
                         }
-                        break;
+                    break;
                 }
             }
-    // wow just look how clean main method looks
     public static void main(String[] args) 
     {
         MainGame gameController = new MainGame();

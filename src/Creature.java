@@ -3,7 +3,7 @@
  * 
  *  @author Shinoruba
  *  @author JSTP8330
- *  @version 1.0
+ *  @version 1.1
  */
 
 
@@ -36,14 +36,17 @@ public class Creature
         {
             this.evolutionLevel=1;
         }
-        this.health=health; // Idk if its 100
+        this.health=health;
     }
 
-    public Creature(String name, String type, String family, int evolutionLevel) {
+    public Creature(String name, String type, String family, int evolutionLevel) 
+    {
         this(name, type, family, evolutionLevel, 100); // Default HP is set to 100
     }
 
 
+
+// =================================================================        
     // Methods ( must i explain these lol )
     public String getName()
     {

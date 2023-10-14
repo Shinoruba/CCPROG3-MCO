@@ -4,27 +4,22 @@
  * 
  *  @author Shinoruba
  *  @author JSTP8330
- *  @version 1.2
+ *  @version 1.5
  */
 import java.util.ArrayList;
 import java.util.Random;
-// import java.util.Scanner;
 
 public class BattlePhase 
 {
-    private Creature userCreature;
-    private Creature enemyCreature;
+    private Creature userCreature, enemyCreature;
     private Inventory currentInventory;
     private int maxActions = 3; // Max number of actions per battle
     private Random random = new Random();
 
-    public BattlePhase(Creature userCreature, Creature enemyCreature, Inventory currentInventory) {
+    public BattlePhase(Creature userCreature, Creature enemyCreature, Inventory currentInventory) 
+    {
         this.userCreature = userCreature;
         this.enemyCreature = enemyCreature;
-        this.currentInventory = currentInventory; // Initialize the currentInventory here.
-    }
-
-    public void setCurrentInventory(Inventory currentInventory) {
         this.currentInventory = currentInventory;
     }
 
@@ -34,7 +29,7 @@ public class BattlePhase
         System.out.println("Battle starts!");
         int actionsRemaining = maxActions;
         boolean shouldEndBattle = false; // Flag to indicate if the battle should end
-        while (actionsRemaining > 0 && !shouldEndBattle) 
+        while(actionsRemaining > 0 && !shouldEndBattle) 
         {
             displayBattleStatus();// Display available actions
             System.out.println("---");
@@ -49,82 +44,101 @@ public class BattlePhase
             InputHandler handler = new InputHandler();
             int userChoice = handler.getUserChoice(1,4);
 
-            switch (userChoice) {
-                case 1:
-                int userDamage = calculateUserDamage(userCreature, enemyCreature);
-                enemyCreature.setHealth(enemyCreature.getHealth() - userDamage);
-                System.out.println(userCreature.getName() + " attacks " + enemyCreature.getName() + " for " + userDamage + " damage.");
-                actionsRemaining--;
-                if(enemyCreature.getHealth() > 0) 
-                {
-                    int enemyDamage = calculateEnemyDamage(enemyCreature, userCreature);
-                    userCreature.setHealth(userCreature.getHealth() - enemyDamage);
-                    System.out.println(enemyCreature.getName() + " attacks " + userCreature.getName() + " for " + enemyDamage + " damage.");
-                }
+            switch(userChoice) 
+            {
+                case 1: // user ATTACK RAHHH
+                    int userDamage = calculateUserDamage(userCreature, enemyCreature);
+                    enemyCreature.setHealth(enemyCreature.getHealth() - userDamage);
+                    System.out.println(userCreature.getName() + " attacks " + enemyCreature.getName() + " for " + userDamage + " damage.");
+                    actionsRemaining--;
+                    if(enemyCreature.getHealth() > 0) 
+                    {
+                        int enemyDamage = calculateEnemyDamage(enemyCreature, userCreature);
+                        userCreature.setHealth(userCreature.getHealth() - enemyDamage);
+                        System.out.println(enemyCreature.getName() + " attacks " + userCreature.getName() + " for " + enemyDamage + " damage.");
+                    }
+                    
                 break;
-                case 2:
-                    // User chose to swap
-                    if (currentInventory.getSize() > 1) {
+
+                case 2:// User chose to swap
+                    if(currentInventory.getSize() > 1) 
+                    {
                         displayInventory(); // Display the user's inventory
                         int swapChoice = InputHandler.getUserSwapChoice(currentInventory);
 
-                        if (swapChoice >= 1 && swapChoice <= currentInventory.getSize()) {
+                        if (swapChoice >= 1 && swapChoice <= currentInventory.getSize()) 
+                        {
                             Creature newActiveCreature = currentInventory.getAllCreatures().get(swapChoice - 1);
                             currentInventory.setActiveCreature(newActiveCreature);
+                            userCreature = newActiveCreature; // Update in the BattlePhase
                             System.out.println(userCreature.getName() + " is swapped with " + newActiveCreature.getName() + ".");
-                        } else {
+                        } 
+                        else 
+                        {
                             System.out.println("Invalid creature selection.");
                         }
-                    } else {
-                        System.out.println("You don't have any other creatures to swap with.");
-                    }
+                    } 
+                else 
+                {
+                     System.out.println("You don't have any other creatures to swap with.");
+                }
                 break;
-                case 3:
-                    // User chose to catch
-                    if (tryCaptureCreature(enemyCreature)) {
+
+                case 3: // User try to capture
+                    if(tryCaptureCreature(enemyCreature)) 
+                    {
                         System.out.println("You've successfully captured " + enemyCreature.getName() + "!");
                         System.out.println("=============\n");
 
                         currentInventory.addCreature(enemyCreature); // Add the captured creature to the user's inventory
-                        shouldEndBattle = true; // Set the flag to end the battle
-                    } else {
+                        shouldEndBattle = true;
+                    } 
+                    else 
+                    {
                         System.out.println("Capture attempt failed.");
                     }
                     actionsRemaining--;
                 break;
-                case 4:
-                    // User chose to run away
+
+                case 4: // User chose to run away
                     System.out.println("You ran away from the battle!");
                     shouldEndBattle = true; // Set the flag to end the battle
                 break;
-                default:
-                    System.out.println("Invalid choice. Please select a valid action (1-4).");
+
+                    default:
+                        System.out.println("Invalid choice. Please select a valid action (1-4).");
             }
 
 
-            // Check if the enemy is defeated
-        if (enemyCreature.getHealth() <= 0) {
-            System.out.println(enemyCreature.getName() + " is defeated!");
-            return; // Exit the battle
-        }
-
-        // Display enemy's health
-        System.out.println(enemyCreature.getName() + " (Health: " + enemyCreature.getHealth() + ")");
-
-        // Check if user's actions are fully consumed
-        if (actionsRemaining == 0) {
-            System.out.println("The enemy has run away!");
-            return; // Exit the battle
-        }
+            
+                if(enemyCreature.getHealth() <= 0) // Check if the enemy is defeated
+                {
+                    System.out.println(enemyCreature.getName() + " is defeated!");
+                    return; // Exit the battle
+                }
+            // Display enemy's health
+            System.out.println(enemyCreature.getName() + " (Health: " + enemyCreature.getHealth() + ")");
+       
+                if(actionsRemaining == 0) // Check if user's actions are fully consumed
+                {
+                    System.out.println("The enemy has run away!");
+                    return; // Exit the battle
+                }
         }
     }
+// =================================================================        
+public void setCurrentInventory(Inventory currentInventory) 
+{
+    this.currentInventory = currentInventory;
+}
 
-
-private void displayInventory() {
+private void displayInventory() 
+{
     ArrayList<Creature> allCreatures = currentInventory.getAllCreatures();
     System.out.println("Your inventory:");
     
-    for (int i = 0; i < allCreatures.size(); i++) {
+    for(int i = 0; i < allCreatures.size(); i++) 
+    {
         Creature creature = allCreatures.get(i);
         System.out.println((i + 1) + ": " + creature.getName() + " (EL" + creature.getEvolutionLevel() + ")");
     }
@@ -142,12 +156,8 @@ private void displayInventory() {
         Random random = new Random();
         int damage = random.nextInt(10) + 1; // Random damage between 1 and 10
 
-        // Check type advantage
-        if (isTypeStrongAgainst(attacker.getType(), defender.getType())) 
-        {
+        if(isTypeStrongAgainst(attacker.getType(), defender.getType())) 
             damage *= 1.5; // Type advantage: damage is increased by 50%
-        }
-
         return damage;
     }
 
@@ -158,12 +168,18 @@ private void displayInventory() {
         return damage;
     }
 
-    private boolean isTypeStrongAgainst(String attackerType, String defenderType) {
-        if (attackerType.equals("FIRE") && defenderType.equals("GRASS")) {
+    private boolean isTypeStrongAgainst(String attackerType, String defenderType) 
+    {
+        if(attackerType.equals("FIRE") && defenderType.equals("GRASS")) 
+        {
             return true;
-        } else if (attackerType.equals("GRASS") && defenderType.equals("WATER")) {
+        } 
+        else if(attackerType.equals("GRASS") && defenderType.equals("WATER")) 
+        {
             return true;
-        } else if (attackerType.equals("WATER") && defenderType.equals("FIRE")) {
+        } 
+        else if(attackerType.equals("WATER") && defenderType.equals("FIRE")) 
+        {
             return true;
         }
         return false; // No type advantage
