@@ -1,10 +1,9 @@
 /**
- *  @code Game class controls the flow of the game, this includes the menu, user inputs, and transitions between
- *  exploration and battle
+ * The `MainGame` class controls the flow of the game, including the menu, user inputs, and transitions between exploration and battle.
  * 
- *  @author Shinoruba
- *  @author JSTP8330
- *  @version 2.0
+ * @author Shinoruba
+ * @author JSTP8330
+ * @version 2.1
  */
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -17,6 +16,10 @@ public class MainGame
 
     private Scanner scan;
     InputHandler handler = new InputHandler();
+
+    /**
+     * Constructs a MainGame object.
+     */
     public MainGame() 
     {
         currentInventory = new Inventory();
@@ -24,40 +27,39 @@ public class MainGame
         scan = new Scanner(System.in);
     }
 
+    /**
+     * Gets the current user's inventory.
+     * @return The current user's inventory.
+     */
     public Inventory getCurrentInventory() 
     {
         return currentInventory;
     }
 
+                /**
+                 * Starts the game.
+                 */
                 public void startGame() 
                 {
-                    System.out.println("Welcome to the budget pokemon game!");
+                    System.out.println("Welcome to the budget Pokemon game!");
                     selectStarterCreature();
-
+                    
                     Creature userCreature = currentInventory.getActiveCreature();
                     BattlePhase battlePhase = new BattlePhase(userCreature, encounteredEnemy, currentInventory);
                     battlePhase.setCurrentInventory(currentInventory);
-
+                
                     while(true) 
                     {
                         displayMainMenu();
-                        
-                        int choice = handler.getUserChoice(1,4); // only 1,2,3,4 options are allowed
-                        
-                        switch(choice) 
-                        {
-                            case 1: viewInventory();    break;
-                            case 2: exploreArea();      break;
-                            case 3: evolveCreature();   break;
-                            case 4: exitGame();         break;
-                            default:
-                                System.out.println("Invalid choice BEEEP!!! Please select a valid option, thank you.");
-                        }
+                        int choice = getUserMenuChoice();
+                        handleUserChoice(choice);
                     }
                 }
 
-                // Add a method to select the starter creature
-                private void selectStarterCreature() 
+                /**
+                 * Selects a starter creature for the player, there will be 3 choices!
+                 */
+                private void selectStarterCreature() // Add a method to select the starter creature
                 {
                     // 3 El1 starter creatures, one from each element!
                     Creature starterCreature1 = new Creature("Strawander", "Fire", "A", 1, 100);
@@ -95,8 +97,10 @@ public class MainGame
     }
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        // 1. View Inventory
-            private void viewInventory() 
+            /**
+             * Displays the player's inventory, allowing them to view and manage their creatures.
+             */
+            private void viewInventory() // 1. View Inventory
             {
                 ArrayList<Creature> allCreatures = currentInventory.getAllCreatures();
                 Creature activeCreature = currentInventory.getActiveCreature();// Get current active creature
@@ -128,8 +132,7 @@ public class MainGame
                         }
                     }
 
-                // Check if there are multiple creatures in the inventory
-                if (allCreatures.size()>1) 
+                if (allCreatures.size()>1) // Check if there are multiple creatures in the inventory
                 {
                     System.out.print("Do you want to change your active creature? (y/n): ");
                     String choice = scan.next().toLowerCase();
@@ -148,78 +151,96 @@ public class MainGame
                         while(true) 
                         {
                             try{
-                                creatureNumber = scan.nextInt();
-                                if(creatureNumber >= 1 && creatureNumber <= allCreatures.size()) 
+                                if(scan.hasNextInt()) 
                                 {
-                                    break; // Valid input, exit the loop
+                                    creatureNumber = scan.nextInt();
+                                    if(creatureNumber >= 1 && creatureNumber <= allCreatures.size()) 
+                                    {
+                                        break; // Valid input, exit the loop
+                                    }
+                                    else 
+                                    {
+                                        System.out.print("Invalid creature number. Enter a valid number: ");
+                                    }
                                 } 
                                 else 
                                 {
-                                    System.out.print("Invalid creature number. Enter a valid number: ");
+                                    System.out.print("Invalid input. Please enter a valid number: ");
+                                    scan.next(); // Consume the invalid input
                                 }
-                            } catch (java.util.InputMismatchException e) 
+                            }catch(java.util.InputMismatchException e) 
                             {
                                 System.out.print("Invalid input. Please enter a valid number: ");
-                                scan.next(); // Consume the invalid input
+                                scan.next(); // Consume invalid input
                             }
                         }
-                
                         currentInventory.setActiveCreature(allCreatures.get(creatureNumber - 1));
                         System.out.println("Active creature set to: " + allCreatures.get(creatureNumber - 1).getName());
                     }
                 }
             }
 
-// Update the exploreArea method
-private void exploreArea() {
-    System.out.println("Exploring the area...");
+            /**
+             * Allows the player to explore the current area, potentially encountering creatures ( there is an easter egg creature ).
+             */
+            private void exploreArea() // 2. Explore Area 
+            {
+                System.out.println("Exploring the area...");
 
-    // Display the current area screen with the player's position marked.
-    currentArea.displayArea();
+                // Display the current area screen with the player's position marked.
+                currentArea.displayArea();
 
-    // Allow the player to move within the area.
-    Direction moveDirection = getPlayerMoveDirection();
+                // Allow the player to move within the area.
+                Direction moveDirection = getPlayerMoveDirection();
 
-        // BANE OF MY EXISTENCE ->  Good: Enemy can be randomized now / Bad: Enemy HP can go back to 50, and can go against same creature captured.
-        encounteredEnemy = null;
+                    // BANE OF MY EXISTENCE
+                    encounteredEnemy = null;
 
-    if (encounteredEnemy == null) {
-        encounteredEnemy = currentArea.determineEncounteredCreature();
-        encounteredEnemy.getHealth();
-    }
+                if(encounteredEnemy == null) 
+                {
+                    encounteredEnemy = currentArea.determineEncounteredCreature();
+                    encounteredEnemy.getHealth();
+                }
 
-    System.out.println("You've encountered a creature!");
+                System.out.println("You've encountered a creature!");
 
-    Creature userCreature = currentInventory.getActiveCreature();
-    BattlePhase battle = new BattlePhase(userCreature, encounteredEnemy, currentInventory);
-    battle.startBattle(encounteredEnemy.getHealth()); // Use enemy's actual health
+                Creature userCreature = currentInventory.getActiveCreature();
+                BattlePhase battle = new BattlePhase(userCreature, encounteredEnemy, currentInventory);
+                battle.startBattle(encounteredEnemy.getHealth()); // Use enemy's actual health
 
-    if (userCreature.getHealth() <= 0) {
-        System.out.println("Your creature was defeated!");
-        currentInventory.removeCreature(userCreature);
-        System.out.println("You've been returned to a safe location.");
-    } else if (encounteredEnemy.getHealth() <= 0) {
-        System.out.println("You defeated the enemy creature!");
-        if (battle.tryCaptureCreature(encounteredEnemy)) {
-            System.out.println("You've successfully captured " + encounteredEnemy.getName() + "!");
-            currentInventory.addCreature(encounteredEnemy);
-        } else {
-            System.out.println("Capture attempt failed.");
-        }
-    }
+                if(userCreature.getHealth() <= 0) 
+                {
+                    System.out.println("Your creature was defeated!");
+                    currentInventory.removeCreature(userCreature);
+                    System.out.println("You've been returned to a safe location.");
+                } 
+                else if(encounteredEnemy.getHealth() <= 0) 
+                {
+                    System.out.println("You defeated the enemy creature!");
+                    if (battle.tryCaptureCreature(encounteredEnemy)) 
+                    {
+                        System.out.println("You've successfully captured " + encounteredEnemy.getName() + "!");
+                        currentInventory.addCreature(encounteredEnemy);
+                    } else 
+                        System.out.println("Capture attempt failed.");   
+                }
 
-    // Update the player's position based on the move direction.
-    updatePlayerPosition(moveDirection);
-}
+                // Update the player's position based on the move direction.
+                updatePlayerPosition(moveDirection);
+            }
 
-        // 3. Evolve the Creature    
-            private void evolveCreature() 
+            /**
+             * Handles the evolution of a creature. Not yet implemented.
+             */
+            private void evolveCreature() // 3. Evolve the Creature
             {
                 System.out.println("Not yet implemented! Please wait for future updates and patches.");    
             }
 
-        // 4. Exit the game bye bye aaauughhh please help me
-            private void exitGame() 
+            /**
+             * Exits the game.
+             */
+            private void exitGame() // 4. Exit the game bye bye aaauughhh please help me
             {
                 System.out.println("Exiting the game. Give us a decent grade for effort :( thank  you!");
                 scan.close();
@@ -227,9 +248,13 @@ private void exploreArea() {
             }
 
     
-    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~       
-            // Get the player's move direction (UP, DOWN, LEFT, or RIGHT).
-                public enum Direction 
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~       
+                /**
+                 * Handles the player's move direction (UP, DOWN, LEFT, or RIGHT) in the current area.
+                 *
+                 * @return The selected move direction.
+                 */
+                public enum Direction
                     {
                         UP,DOWN,LEFT,RIGHT;
                     }
@@ -286,13 +311,16 @@ private void exploreArea() {
                                 {
                                     System.out.println("You cannot move RIGHT from here.");
                                 }
-                            } else {
-                                System.out.println("Invalid direction. Please enter UP, DOWN, LEFT, or RIGHT.");
-                            }
+                            } else
+                                System.out.println("Invalid direction. Please enter UP, DOWN, LEFT, or RIGHT.");      
                         }
                     }
 
-            // Update the player's position based on the move direction.
+            /**
+             * Updates the player's position based on the chosen move direction.
+             *
+             * @param moveDirection The direction in which the player wants to move.
+             */
             private void updatePlayerPosition(Direction moveDirection) // Used in exploreArea() method
             {
                 int currentX = currentArea.getCurrentX();
@@ -329,6 +357,55 @@ private void exploreArea() {
                     break;
                 }
             }
+
+            /**
+             * Gets the user's menu choice (1-4) and validates it.
+             *
+             * @return The validated user's choice.
+             */
+            private int getUserMenuChoice() 
+            {
+                int choice;
+                while(true){
+                    try 
+                    {
+                        System.out.print("Enter your choice: ");
+                        choice = handler.getUserChoice(1, 4);
+                        return choice;
+                    }catch(java.util.InputMismatchException e) 
+                    {
+                        System.out.println("Invalid input. Please enter a valid number (1-4).");
+                        scan.next(); // Consume the invalid input
+                    }
+                }
+            }
+
+            /**
+             * Handles the user's choice from the main menu and invokes corresponding methods.
+             *
+             * @param choice The user's selected menu choice.
+             */
+            private void handleUserChoice(int choice) 
+            {
+                switch(choice) 
+                {
+                    case 1:
+                        viewInventory();
+                        break;
+                    case 2:
+                        exploreArea();
+                        break;
+                    case 3:
+                        evolveCreature();
+                        break;
+                    case 4:
+                        exitGame();
+                        break;
+                    default:
+                        System.out.println("Invalid choice BEEEP!!! Please select a valid option, thank you.");
+                }
+            }
+
     public static void main(String[] args) 
     {
         MainGame gameController = new MainGame();

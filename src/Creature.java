@@ -1,9 +1,9 @@
 /**
- *  @code Creature class represents the creatures in the game ( obviously ) and stores their own attributes
+ *  Creature class represents the creatures in the game ( obviously ) and stores their own attributes
  * 
  *  @author Shinoruba
  *  @author JSTP8330
- *  @version 1.1
+ *  @version 1.2
  */
 
 
@@ -14,13 +14,14 @@ public class Creature
 
     
     /**
-     * 
-     * @param name name of the creature, obviously
-     * @param type type of the creature, obviously
-     * @param family family of the creature, where it belongs to
-     * @param evolutionLevel the evolution level of the creature, ranging from 1 to 3
-     * @param health the health of the creature
-     */ // Constructor
+     * Constructs a Creature with the given attributes.
+     *
+     * @param name           The name of the creature.
+     * @param type           The type of the creature.
+     * @param family         The family to which the creature belongs.
+     * @param evolutionLevel The evolution level of the creature (1 to 3).
+     * @param health         The health of the creature.
+     */
     public Creature(String name, String type, String family, int evolutionLevel, int health)
     {
         this.name=name;
@@ -45,41 +46,74 @@ public class Creature
     }
 
 
-
 // =================================================================        
-    // Methods ( must i explain these lol )
+            // Methods ( must i explain these lol )
+    /**
+     * Retrieves the name of the creature.
+     *
+     * @return The name of the creature.
+     */
     public String getName()
     {
         return name;
     }
 
+    /**
+     * Retrieves the type of the creature.
+     *
+     * @return The type of the creature.
+     */
     public String getType()
     {
         return type;
     }
 
+    /**
+     * Retrieves the family of the creature.
+     *
+     * @return The family of the creature.
+     */
     public String getFamily()
     {
         return family;
     }
 
+    /**
+     * Retrieves the evolution level of the creature.
+     *
+     * @return The evolution level of the creature.
+     */
     public int getEvolutionLevel()
     {
         return evolutionLevel;
     }
 
+    /**
+     * Retrieves the health of the creature.
+     *
+     * @return The health of the creature.
+     */
     public int getHealth()
     {
         return health;
     }
 
+    /**
+     * Sets the health of the creature.
+     *
+     * @param health The new health value to set.
+     */
     public void setHealth(int health)
     {
         this.health = health;
     }
 
-    // toString() method returns string representation of object
-    public String toString() // we use this to display the creature infromation
+    /**
+     * Returns a string representation of the creature's attributes.
+     *
+     * @return A string representing the creature's name, type, family, evolution level, and health.
+     */
+    public String toString()
     {
         return "Name: " + name + "\nType " + type + "\nFamily: " + family + "\nEvolution: " + evolutionLevel +
                 "\nHealth: " + health;

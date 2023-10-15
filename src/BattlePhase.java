@@ -1,5 +1,5 @@
 /**
- *  @code BattlePhase class handles the Battle Phase logic ( obviously lol ), this will include actions like
+ *  The BattlePhase class handles the Battle Phase logic ( obviously lol ), this will include actions like
  *  attacking, swapping, catching, and running away like a loser
  * 
  *  @author Shinoruba
@@ -16,6 +16,8 @@ public class BattlePhase
     private int maxActions = 3; // Max number of actions per battle
     private Random random = new Random();
 
+
+    
     public BattlePhase(Creature userCreature, Creature enemyCreature, Inventory currentInventory) 
     {
         this.userCreature = userCreature;
@@ -23,6 +25,11 @@ public class BattlePhase
         this.currentInventory = currentInventory;
     }
 
+    /**
+     * Starts a battle between the user's creature and an enemy creature.
+     *
+     * @param enemyHealth The initial health of the enemy creature.
+     */
     public void startBattle(int enemyHealth) 
     {
         System.out.println("=============================");
@@ -59,7 +66,6 @@ public class BattlePhase
                     }
                     
                 break;
-
                 case 2:// User chose to swap
                     if(currentInventory.getSize() > 1) 
                     {
@@ -83,7 +89,6 @@ public class BattlePhase
                      System.out.println("You don't have any other creatures to swap with.");
                 }
                 break;
-
                 case 3: // User try to capture
                     if(tryCaptureCreature(enemyCreature)) 
                     {
@@ -99,18 +104,13 @@ public class BattlePhase
                     }
                     actionsRemaining--;
                 break;
-
                 case 4: // User chose to run away
                     System.out.println("You ran away from the battle!");
                     shouldEndBattle = true; // Set the flag to end the battle
                 break;
-
                     default:
                         System.out.println("Invalid choice. Please select a valid action (1-4).");
             }
-
-
-            
                 if(enemyCreature.getHealth() <= 0) // Check if the enemy is defeated
                 {
                     System.out.println(enemyCreature.getName() + " is defeated!");
@@ -126,23 +126,28 @@ public class BattlePhase
                 }
         }
     }
-// =================================================================        
+// =================================================================      
+/**
+ * Sets the current inventory to be used in battle.
+ *
+ * @param currentInventory The current inventory containing creatures.
+ */ 
 public void setCurrentInventory(Inventory currentInventory) 
 {
     this.currentInventory = currentInventory;
 }
 
-private void displayInventory() 
-{
-    ArrayList<Creature> allCreatures = currentInventory.getAllCreatures();
-    System.out.println("Your inventory:");
-    
-    for(int i = 0; i < allCreatures.size(); i++) 
+    private void displayInventory() 
     {
-        Creature creature = allCreatures.get(i);
-        System.out.println((i + 1) + ": " + creature.getName() + " (EL" + creature.getEvolutionLevel() + ")");
+        ArrayList<Creature> allCreatures = currentInventory.getAllCreatures();
+        System.out.println("Your inventory:");
+        
+        for(int i = 0; i < allCreatures.size(); i++) 
+        {
+            Creature creature = allCreatures.get(i);
+            System.out.println((i + 1) + ": " + creature.getName() + " (EL" + creature.getEvolutionLevel() + ")");
+        }
     }
-}
 
     private void displayBattleStatus() 
     {
@@ -185,6 +190,12 @@ private void displayInventory()
         return false; // No type advantage
     }
 
+    /**
+     * Tries to capture an enemy creature.
+     *
+     * @param enemyCreature The enemy creature to attempt capturing.
+     * @return true if the capture attempt succeeds, false otherwise.
+     */
     public boolean tryCaptureCreature(Creature enemyCreature) 
     {
         int catchRate = calculateCatchRate(enemyCreature.getHealth());
@@ -193,6 +204,12 @@ private void displayInventory()
         return randomValue < catchRate;
     }
 
+    /**
+     * Calculates the catch rate for capturing an enemy creature.
+     *
+     * @param enemyHealth The health of the enemy creature.
+     * @return The calculated catch rate.
+     */
     private int calculateCatchRate(int enemyHealth) 
     {
         return 40 + 50 - enemyHealth;

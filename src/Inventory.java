@@ -1,10 +1,10 @@
 
 /**
- *  @code Inventory class manages the user's collection of creatures
+ *  The Inventory class manages the user's collection of creatures
  * 
  *  @author Shinoruba
  *  @author JSTP8330
- *  @version 1.1
+ *  @version 1.2
  */
 
 import java.util.*; // too lazy, might as well get everything lmao
@@ -19,6 +19,11 @@ public class Inventory
         activeCreature = null;              // set active creature to null for now
     }
 
+        /**
+         * Adds a creature to the inventory.
+         *
+         * @param creature The creature to add to the inventory.
+         */
         public void addCreature(Creature creature)
         {
             creatures.add(creature);        // uses .add() method to add creature to arraylist
@@ -28,6 +33,11 @@ public class Inventory
             }
         }
 
+        /**
+         * Removes a creature from the inventory.
+         *
+         * @param creature The creature to remove from the inventory.
+         */
         public void removeCreature(Creature creature)
         {
             creatures.remove(creature);     // uses .remove() method to remove creature from arraylist, similar to it's .add() method
@@ -37,14 +47,22 @@ public class Inventory
             }
         }
 
-    // retrieve the active creature
+    /**
+     * Retrieves the active creature in the inventory.
+     *
+     * @return The active creature or null if none is active.
+     */
     public Creature getActiveCreature()
     {
         return activeCreature;
     }
 
 
-    // sets the active creature
+    /**
+     * Sets the active creature in the inventory.
+     *
+     * @param creature The creature to set as active.
+     */
     public void setActiveCreature(Creature creature)
     {
         if(creatures.contains(creature))
@@ -53,13 +71,21 @@ public class Inventory
         }
     }
 
-    // returns copy of inventory list
+    /**
+     * Returns a copy of the list of all creatures in the inventory.
+     *
+     * @return A new ArrayList containing all creatures in the inventory.
+     */
     public ArrayList<Creature> getAllCreatures() 
     {
         return new ArrayList<>(creatures);
     }
 
-    // returns number of creatures from inventory
+    /**
+     * Returns the number of creatures in the inventory.
+     *
+     * @return The number of creatures in the inventory.
+     */
     public int getSize()
     {
         return creatures.size();
