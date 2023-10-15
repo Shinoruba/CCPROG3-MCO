@@ -369,7 +369,6 @@ public class MainGame
                 while(true){
                     try 
                     {
-                        System.out.print("Enter your choice: ");
                         choice = handler.getUserChoice(1, 4);
                         return choice;
                     }catch(java.util.InputMismatchException e) 
