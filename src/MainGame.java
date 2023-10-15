@@ -272,7 +272,7 @@ public class MainGame
              */
             RIGHT
     }
-    
+
     private Direction getPlayerMoveDirection()
     {
         while(true)
@@ -427,7 +427,7 @@ public class MainGame
      * starter creature, and enters a loop to display the main menu and handle user input for game actions.
      * The game continues until the user chooses to exit.
      * 
-     * @param args The command-line arguments (not used in this application).
+     * @param args The cmd argument.
      */
     public static void main(String[] args) 
     {
