@@ -11,6 +11,12 @@ public class Inventory
     private ArrayList<Creature> creatures;  // stores creatures
     private Creature activeCreature;        // represents the current active creature
 
+    /**
+     * Initializes a new inventory.
+     * 
+     * This constructor creates a new inventory for the user to store creatures. It initializes an empty list
+     * of creatures and sets the active creature to null.
+     */
     public Inventory()
     {
         creatures = new ArrayList<>();

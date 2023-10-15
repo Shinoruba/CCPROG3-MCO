@@ -250,8 +250,6 @@ public class MainGame
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~       
                 /**
                  * Handles the player's move direction (UP, DOWN, LEFT, or RIGHT) in the current area.
-                 *
-                 * @return The selected move direction.
                  */
                 public enum Direction
                     {
@@ -404,6 +402,15 @@ public class MainGame
                 }
             }
 
+    /**
+     * The main entry point for the game.
+     * 
+     * This method serves as the starting point for the game. It initializes the game controller, selects the
+     * starter creature, and enters a loop to display the main menu and handle user input for game actions.
+     * The game continues until the user chooses to exit.
+     * 
+     * @param args The command-line arguments (not used in this application).
+     */
     public static void main(String[] args) 
     {
         MainGame gameController = new MainGame();
