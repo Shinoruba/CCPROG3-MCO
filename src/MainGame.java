@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Scanner;
 /**
  * The `MainGame` class controls the flow of the game, including the menu, user inputs, and transitions between exploration and battle.
  * 
@@ -5,9 +7,6 @@
  * @author JSTP8330
  * @version 2.1
  */
-import java.util.ArrayList;
-import java.util.Scanner;
-
 public class MainGame 
 {
     private Inventory currentInventory;

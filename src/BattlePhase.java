@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Random;
 /**
  *  The BattlePhase class handles the Battle Phase logic ( obviously lol ), this will include actions like
  *  attacking, swapping, catching, and running away like a loser
@@ -6,9 +8,6 @@
  *  @author JSTP8330
  *  @version 1.5
  */
-import java.util.ArrayList;
-import java.util.Random;
-
 public class BattlePhase 
 {
     private Creature userCreature, enemyCreature;

@@ -5,8 +5,6 @@
  *  @author JSTP8330
  *  @version 1.2
  */
-
-
 public class Creature
 {
     private String name, type, family;

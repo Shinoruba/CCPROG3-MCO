@@ -1,3 +1,4 @@
+import java.util.Scanner;
 /**
  *  The InputHandler class handles inputs, jokes aside- this is a helper class that can have 
  *  multiple classes use the same method for user inputs
@@ -6,8 +7,6 @@
  *  @author JSTP8330
  *  @version 1.1
  */
-import java.util.Scanner;
-
 public class InputHandler 
 {
     private static Scanner scan = new Scanner(System.in);

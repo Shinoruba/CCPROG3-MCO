@@ -1,3 +1,5 @@
+import java.util.*;
+
 /**
  *  The Area class handles area exploration done by the user
  * 
@@ -5,7 +7,6 @@
  *  @author JSTP8330
  *  @version 1.3
  */
-import java.util.*;
 public class Area
 {
    private int[][] tiles; // 2D array of area's tiles
