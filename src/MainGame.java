@@ -150,7 +150,8 @@ public class MainGame
                 
                         while(true) 
                         {
-                            try{
+                            try
+                            {
                                 if(scan.hasNextInt()) 
                                 {
                                     creatureNumber = scan.nextInt();

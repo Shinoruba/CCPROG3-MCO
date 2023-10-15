@@ -128,7 +128,7 @@ public class BattlePhase
             // Display enemy's health
             System.out.println(enemyCreature.getName() + " (Health: " + enemyCreature.getHealth() + ")");
        
-                if(actionsRemaining == 0) // Check if user's actions are fully consumed
+                if(actionsRemaining == 0 && tryCaptureCreature(enemyCreature)) // Check if user's actions are fully consumed
                 {
                     System.out.println("\nThe enemy has run away!");
                     System.out.println("\n================");
@@ -167,6 +167,15 @@ public void setCurrentInventory(Inventory currentInventory)
         System.out.println(enemyCreature.getName() + " (Health: " + enemyCreature.getHealth() + ")");
     }
 
+    /**
+     * Calculates the damage inflicted by the attacker to the defender.
+     * Randomly generates damage between 1 and 10. If there's a type advantage
+     * for the attacker over the defender, the damage is increased by 50%.
+     *
+     * @param attacker The creature that is attacking. ( Player)
+     * @param defender The creature that is defending. ( Enemy )
+     * @return The calculated damage value.
+     */
     private int calculateUserDamage(Creature attacker, Creature defender) 
     {
         Random random = new Random();
@@ -177,6 +186,15 @@ public void setCurrentInventory(Inventory currentInventory)
         return damage;
     }
 
+    /**
+     * Calculates the damage inflicted by the attacker to the defender.
+     * Randomly generates damage between 1 and 10.
+     * ( This is for the enemy creature )
+     *
+     * @param attacker The creature that is attacking. ( Enemy )
+     * @param defender The creature that is defending. ( Player )
+     * @return The calculated damage value.
+     */
     private int calculateEnemyDamage(Creature attacker, Creature defender) 
     {
         Random random = new Random();
@@ -184,6 +202,15 @@ public void setCurrentInventory(Inventory currentInventory)
         return damage;
     }
 
+
+    /**
+     * Checks if the attacker's type has an advantage over the defender's type.
+     *
+     * @param attackerType The type of attacking creature.
+     * @param defenderType The type of defending creature.
+     * @return True if the attacker has a type advantage.
+     * @return False if otherwise.
+     */
     private boolean isTypeStrongAgainst(String attackerType, String defenderType) 
     {
         if(attackerType.equals("FIRE") && defenderType.equals("GRASS")) 
