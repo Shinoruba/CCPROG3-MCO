@@ -55,7 +55,7 @@ c. Set the starter creature as the active creature - [x]
 
 a. Implement the "View Inventory" option - [x]
 
-b. Implement the "Explore an Area" option - [x] (2d array/row system to be implemented)
+b. Implement the "Explore an Area" option - [x]
 
 ## Milestone 5: Encounter Wild Creatures - [x]
 
@@ -65,13 +65,19 @@ b. Implement area exploration mechanics and encounters - [x]
 
 c. Implement random creature encounters in different areas - [x]
 
-## Milestone 7: Final Testing and Polishing - []
+## Milestone 6: Final Testing and Polishing - [x]
 
-a. Conduct comprehensive testing of the game's features and mechanics - []
+a. Conduct comprehensive testing of the game's features and mechanics - [x]
 
-b. Debug and optimize the code for performance and stability - []
+b. Debug and optimize the code for performance and stability - [x]
 
-c. Polish the user interface and user experience - []
+c. Polish the user interface and user experience - [x]
+
+## Milestone 7: UML and Video Recording - []
+
+a. Unified Model Language diagram - []
+
+b. Video Demo Recording - []
 
 ------------------------------------
 
