@@ -249,15 +249,30 @@ public class MainGame
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~       
     /**
      * Handles the player's move direction (UP, DOWN, LEFT, or RIGHT) in the current area.
-     *
      */
     public enum Direction
     {
-        UP,    // Represents the UP direction.
-        DOWN,  // Represents the DOWN direction.
-        LEFT,  // Represents the LEFT direction.
-        RIGHT  // Represents the RIGHT direction.
+            /**
+             * Represents the UP direction.
+             */
+            UP,
+            
+            /**
+             * Represents the DOWN direction.
+             */
+            DOWN,
+            
+            /**
+             * Represents the LEFT direction.
+             */
+            LEFT,
+            
+            /**
+             * Represents the RIGHT direction.
+             */
+            RIGHT
     }
+    
     private Direction getPlayerMoveDirection()
     {
         while(true)
