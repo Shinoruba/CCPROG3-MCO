@@ -37,8 +37,8 @@ public class BattlePhase
      */
     public void startBattle(int enemyHealth) 
     {
-        System.out.println("=============================");
-        System.out.println("Battle starts!");
+        System.out.println("\n================\n");
+        System.out.println("Battle Starts!");
         int actionsRemaining = maxActions;
         boolean shouldEndBattle = false; // Flag to indicate if the battle should end
         while(actionsRemaining > 0 && !shouldEndBattle) 
@@ -51,10 +51,13 @@ public class BattlePhase
             System.out.println("2: Swap Creature");
             System.out.println("3: Try to Capture");
             System.out.println("4: Run Away");
+            System.out.println("---");
 
             // Allow the user to choose an action
             InputHandler handler = new InputHandler();
             int userChoice = handler.getUserChoice(1,4);
+            System.out.println("\n");
+
 
             switch(userChoice) 
             {
@@ -110,9 +113,10 @@ public class BattlePhase
                     actionsRemaining--;
                 break;
                 case 4: // User chose to run away
-                    System.out.println("You ran away from the battle!");
+                    System.out.println("\nYou ran away from the battle!");
                     shouldEndBattle = true; // Set the flag to end the battle
-                break;
+                    System.out.println("\n================");
+                    break;
                     default:
                         System.out.println("Invalid choice. Please select a valid action (1-4).");
             }
@@ -126,7 +130,8 @@ public class BattlePhase
        
                 if(actionsRemaining == 0) // Check if user's actions are fully consumed
                 {
-                    System.out.println("The enemy has run away!");
+                    System.out.println("\nThe enemy has run away!");
+                    System.out.println("\n================");
                     return; // Exit the battle
                 }
         }
@@ -156,7 +161,8 @@ public void setCurrentInventory(Inventory currentInventory)
 
     private void displayBattleStatus() 
     {
-        System.out.println("\nBattle Status:");
+        System.out.println("\n---");
+        System.out.println("Battle Status:");
         System.out.println(userCreature.getName() + " (Health: " + userCreature.getHealth() + ")");
         System.out.println(enemyCreature.getName() + " (Health: " + enemyCreature.getHealth() + ")");
     }

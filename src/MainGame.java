@@ -35,60 +35,61 @@ public class MainGame
         return currentInventory;
     }
 
-                /**
-                 * Starts the game.
-                 */
-                public void startGame() 
-                {
-                    System.out.println("Welcome to the budget Pokemon game!");
-                    selectStarterCreature();
-                    
-                    Creature userCreature = currentInventory.getActiveCreature();
-                    BattlePhase battlePhase = new BattlePhase(userCreature, encounteredEnemy, currentInventory);
-                    battlePhase.setCurrentInventory(currentInventory);
-                
-                    while(true) 
-                    {
-                        displayMainMenu();
-                        int choice = getUserMenuChoice();
-                        handleUserChoice(choice);
-                    }
-                }
+ /**
+     * Starts the game.
+     */
+    public void startGame()
+    {
+        System.out.println("================\n");
+        System.out.println("Welcome to the Budget Pokemon game!\n");
+        selectStarterCreature();
 
-                /**
-                 * Selects a starter creature for the player, there will be 3 choices!
-                 */
-                private void selectStarterCreature() // Add a method to select the starter creature
-                {
-                    // 3 El1 starter creatures, one from each element!
-                    Creature starterCreature1 = new Creature("Strawander", "Fire", "A", 1, 100);
-                    Creature starterCreature2 = new Creature("Squirpie", "Water", "G", 1, 100);
-                    Creature starterCreature3 = new Creature("Brownisaur", "Grass", "D", 1, 100);
-                    // Display a list of EL1 creatures for the user to choose from
-                        ArrayList<Creature> el1Creatures = new ArrayList<>();
-                            el1Creatures.add(starterCreature1);
-                            el1Creatures.add(starterCreature2);
-                            el1Creatures.add(starterCreature3);
+        Creature userCreature = currentInventory.getActiveCreature();
+        BattlePhase battlePhase = new BattlePhase(userCreature, encounteredEnemy, currentInventory);
+        battlePhase.setCurrentInventory(currentInventory);
 
-                        System.out.println("Select a starter creature (EL1):");
-                        for(int i = 0; i < el1Creatures.size(); i++) 
-                        {
-                            System.out.println((i + 1) + ": " + el1Creatures.get(i).getName());
-                        }
-                        int starterChoice = handler.getUserChoice(1, el1Creatures.size());
-                        Creature starterCreature = el1Creatures.get(starterChoice - 1);
+        while(true)
+        {
+            displayMainMenu();
+            int choice = getUserMenuChoice();
+            handleUserChoice(choice);
+        }
+    }
 
-                        // Add the starter creature to the inventory and set it as active
-                        currentInventory.addCreature(starterCreature);
-                        currentInventory.setActiveCreature(starterCreature);
+    /**
+     * Selects a starter creature for the player, there will be 3 choices!
+     */
+    private void selectStarterCreature() // Add a method to select the starter creature
+    {
+        // 3 El1 starter creatures, one from each element!
+        Creature starterCreature1 = new Creature("Strawander", "Fire", "A", 1, 100);
+        Creature starterCreature2 = new Creature("Squirpie", "Water", "G", 1, 100);
+        Creature starterCreature3 = new Creature("Brownisaur", "Grass", "D", 1, 100);
+        // Display a list of EL1 creatures for the user to choose from
+        ArrayList<Creature> el1Creatures = new ArrayList<>();
+        el1Creatures.add(starterCreature1);
+        el1Creatures.add(starterCreature2);
+        el1Creatures.add(starterCreature3);
 
-                        System.out.println("You've selected " + starterCreature.getName() + " as your starter creature!\n");
-                        System.out.println("=======");
-                }
+        System.out.println("Select a starter creature (EL1):");
+        for(int i = 0; i < el1Creatures.size(); i++)
+        {
+            System.out.println((i + 1) + ": " + el1Creatures.get(i).getName());
+        }
+        int starterChoice = handler.getUserChoice(1, el1Creatures.size());
+        Creature starterCreature = el1Creatures.get(starterChoice - 1);
+
+        // Add the starter creature to the inventory and set it as active
+        currentInventory.addCreature(starterCreature);
+        currentInventory.setActiveCreature(starterCreature);
+
+        System.out.println("\nYou've selected " + starterCreature.getName() + " as your starter creature!\n");
+        System.out.println("================");
+    }
 
     private void displayMainMenu() // Used in startGame() method
     {
-        System.out.println("Main Menu:");
+        System.out.println("\nMain Menu:");
         System.out.println("1: View Inventory");
         System.out.println("2: Explore Area");
         System.out.println("3: Evolve Creature");
@@ -191,8 +192,6 @@ public class MainGame
 
                 // Allow the player to move within the area.
                 Direction moveDirection = getPlayerMoveDirection();
-
-                    // BANE OF MY EXISTENCE
                     encounteredEnemy = null;
 
                 if(encounteredEnemy == null) 
@@ -248,159 +247,161 @@ public class MainGame
 
     
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~       
-                /**
-                 * Handles the player's move direction (UP, DOWN, LEFT, or RIGHT) in the current area.
-                 */
-                public enum Direction
-                    {
-                        UP,DOWN,LEFT,RIGHT;
-                    }
-                    private Direction getPlayerMoveDirection() 
-                    {
-                        while(true) 
-                        {
-                            System.out.print("Enter your move (UP/DOWN/LEFT/RIGHT): ");
-                            String input = scan.next().toUpperCase();
-                    
-                            int currentX = currentArea.getCurrentX();
-                            int currentY = currentArea.getCurrentY();
-                    
-                            if(input.equals("UP")) 
-                            {
-                                if(currentX > 0) 
-                                {
-                                    return Direction.UP;
-                                } 
-                                else 
-                                {
-                                    System.out.println("You cannot move UP from here.");
-                                }
-                            } 
-                            else if(input.equals("DOWN"))
-                            {
-                                if(currentX < currentArea.getTiles().length - 1) 
-                                {
-                                    return Direction.DOWN;
-                                } 
-                                else 
-                                {
-                                    System.out.println("You cannot move DOWN from here.");
-                                }
-                            } 
-                            else if(input.equals("LEFT")) 
-                            {
-                                if(currentY > 0) 
-                                {
-                                    return Direction.LEFT;
-                                } 
-                                else 
-                                {
-                                    System.out.println("You cannot move LEFT from here.");
-                                }
-                            } 
-                            else if(input.equals("RIGHT")) 
-                            {
-                                if(currentY < currentArea.getTiles()[currentX].length - 1) 
-                                {
-                                    return Direction.RIGHT;
-                                } 
-                                else 
-                                {
-                                    System.out.println("You cannot move RIGHT from here.");
-                                }
-                            } else
-                                System.out.println("Invalid direction. Please enter UP, DOWN, LEFT, or RIGHT.");      
-                        }
-                    }
+    /**
+     * Handles the player's move direction (UP, DOWN, LEFT, or RIGHT) in the current area.
+     *
+     * @return The selected move direction.
+     */
+    public enum Direction
+    {
+        UP,DOWN,LEFT,RIGHT;
+    }
+    private Direction getPlayerMoveDirection()
+    {
+        while(true)
+        {
+            System.out.print("Enter your move (UP/DOWN/LEFT/RIGHT): ");
+            String input = scan.next().toUpperCase();
 
-            /**
-             * Updates the player's position based on the chosen move direction.
-             *
-             * @param moveDirection The direction in which the player wants to move.
-             */
-            private void updatePlayerPosition(Direction moveDirection) // Used in exploreArea() method
+            int currentX = currentArea.getCurrentX();
+            int currentY = currentArea.getCurrentY();
+
+            if(input.equals("UP"))
             {
-                int currentX = currentArea.getCurrentX();
-                int currentY = currentArea.getCurrentY();
-
-                switch(moveDirection) 
+                if(currentX > 0)
                 {
-                    case UP:
-                        if(currentX > 0) 
-                        {
-                            currentArea.setCurrentX(currentX - 1);
-                        }
-                    break;
-
-                    case DOWN:
-                        if(currentX < currentArea.getTiles().length - 1) 
-                        {
-                            currentArea.setCurrentX(currentX + 1);
-                        }
-                    break;
-
-                    case LEFT:
-                        if(currentY > 0) 
-                        {
-                            currentArea.setCurrentY(currentY - 1);
-                        }
-                    break;
-
-                    case RIGHT:
-                        if(currentY < currentArea.getTiles()[currentX].length - 1) 
-                        {
-                            currentArea.setCurrentY(currentY + 1);
-                        }
-                    break;
+                    return Direction.UP;
                 }
-            }
-
-            /**
-             * Gets the user's menu choice (1-4) and validates it.
-             *
-             * @return The validated user's choice.
-             */
-            private int getUserMenuChoice() 
-            {
-                int choice;
-                while(true){
-                    try 
-                    {
-                        choice = handler.getUserChoice(1, 4);
-                        return choice;
-                    }catch(java.util.InputMismatchException e) 
-                    {
-                        System.out.println("Invalid input. Please enter a valid number (1-4).");
-                        scan.next(); // Consume the invalid input
-                    }
-                }
-            }
-
-            /**
-             * Handles the user's choice from the main menu and invokes corresponding methods.
-             *
-             * @param choice The user's selected menu choice.
-             */
-            private void handleUserChoice(int choice) 
-            {
-                switch(choice) 
+                else
                 {
-                    case 1:
-                        viewInventory();
-                        break;
-                    case 2:
-                        exploreArea();
-                        break;
-                    case 3:
-                        evolveCreature();
-                        break;
-                    case 4:
-                        exitGame();
-                        break;
-                    default:
-                        System.out.println("Invalid choice BEEEP!!! Please select a valid option, thank you.");
+                    System.out.println("You cannot move UP from here.");
                 }
             }
+            else if(input.equals("DOWN"))
+            {
+                if(currentX < currentArea.getTiles().length - 1)
+                {
+                    return Direction.DOWN;
+                }
+                else
+                {
+                    System.out.println("You cannot move DOWN from here.");
+                }
+            }
+            else if(input.equals("LEFT"))
+            {
+                if(currentY > 0)
+                {
+                    return Direction.LEFT;
+                }
+                else
+                {
+                    System.out.println("You cannot move LEFT from here.");
+                }
+            }
+            else if(input.equals("RIGHT"))
+            {
+                if(currentY < currentArea.getTiles()[currentX].length - 1)
+                {
+                    return Direction.RIGHT;
+                }
+                else
+                {
+                    System.out.println("You cannot move RIGHT from here.");
+                }
+            } else
+                System.out.println("Invalid direction. Please enter UP, DOWN, LEFT, or RIGHT.");
+        }
+    }
+
+    /**
+     * Updates the player's position based on the chosen move direction.
+     *
+     * @param moveDirection The direction in which the player wants to move.
+     */
+    private void updatePlayerPosition(Direction moveDirection) // Used in exploreArea() method
+    {
+        int currentX = currentArea.getCurrentX();
+        int currentY = currentArea.getCurrentY();
+
+        switch(moveDirection)
+        {
+            case UP:
+                if(currentX > 0)
+                {
+                    currentArea.setCurrentX(currentX - 1);
+                }
+                break;
+
+            case DOWN:
+                if(currentX < currentArea.getTiles().length - 1)
+                {
+                    currentArea.setCurrentX(currentX + 1);
+                }
+                break;
+
+            case LEFT:
+                if(currentY > 0)
+                {
+                    currentArea.setCurrentY(currentY - 1);
+                }
+                break;
+
+            case RIGHT:
+                if(currentY < currentArea.getTiles()[currentX].length - 1)
+                {
+                    currentArea.setCurrentY(currentY + 1);
+                }
+                break;
+        }
+    }
+
+    /**
+     * Gets the user's menu choice (1-4) and validates it.
+     *
+     * @return The validated user's choice.
+     */
+    private int getUserMenuChoice()
+    {
+        int choice;
+        while(true){
+            try
+            {
+                choice = handler.getUserChoice(1, 4);
+                return choice;
+            }catch(java.util.InputMismatchException e)
+            {
+                System.out.println("Invalid input. Please enter a valid number (1-4).");
+                scan.next(); // Consume the invalid input
+            }
+        }
+    }
+
+    /**
+     * Handles the user's choice from the main menu and invokes corresponding methods.
+     *
+     * @param choice The user's selected menu choice.
+     */
+    private void handleUserChoice(int choice)
+    {
+        switch(choice)
+        {
+            case 1:
+                viewInventory();
+                break;
+            case 2:
+                exploreArea();
+                break;
+            case 3:
+                evolveCreature();
+                break;
+            case 4:
+                exitGame();
+                break;
+            default:
+                System.out.println("Invalid choice BEEEP!!! Please select a valid option, thank you.");
+        }
+    }
 
     /**
      * The main entry point for the game.
