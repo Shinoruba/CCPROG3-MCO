@@ -19,7 +19,7 @@ public class BattlePhase
     /**
      * Constructs a BattlePhase with the given attributes.
      *
-     * @param userCreature           Our creature, both while in main menu & exploring
+     * @param userCreature           Our creature, both while in main menu and exploring
      * @param enemyCreature           Enemy creature to be encountered during battle.
      * @param currentInventory         Heavily used as a placeholder to all our currently captured creatures.
      */

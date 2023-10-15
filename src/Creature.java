@@ -38,12 +38,6 @@ public class Creature
         this.health=health;
     }
 
-    public Creature(String name, String type, String family, int evolutionLevel) 
-    {
-        this(name, type, family, evolutionLevel, 100); // Default HP is set to 100
-    }
-
-
 // =================================================================        
             // Methods ( must i explain these lol )
     /**
