@@ -250,11 +250,13 @@ public class MainGame
     /**
      * Handles the player's move direction (UP, DOWN, LEFT, or RIGHT) in the current area.
      *
-     * @return The selected move direction.
      */
     public enum Direction
     {
-        UP,DOWN,LEFT,RIGHT;
+        UP,    // Represents the UP direction.
+        DOWN,  // Represents the DOWN direction.
+        LEFT,  // Represents the LEFT direction.
+        RIGHT  // Represents the RIGHT direction.
     }
     private Direction getPlayerMoveDirection()
     {

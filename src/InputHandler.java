@@ -64,7 +64,7 @@ public class InputHandler
     }
 
     /**
-     * Close the scanner to release resources, look how cute and useful this silly thing is.
+     * Close the scanner to release resources, look how cute and useful this silly thing is
      */
     public static void closeScanner() 
     {

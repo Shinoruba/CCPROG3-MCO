@@ -20,7 +20,7 @@ public class Inventory
     public Inventory()
     {
         creatures = new ArrayList<>();
-        activeCreature = null;              // set active creature to null for now
+        activeCreature = null;              // set the active creature to null for now
     }
 
         /**

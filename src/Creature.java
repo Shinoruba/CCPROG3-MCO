@@ -38,7 +38,7 @@ public class Creature
         this.health=health;
     }
 
-// =================================================================        
+// ==================================================================        
             // Methods ( must i explain these lol )
     /**
      * Retrieves the name of the creature.
