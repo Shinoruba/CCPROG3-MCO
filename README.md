@@ -73,11 +73,11 @@ b. Debug and optimize the code for performance and stability - [x]
 
 c. Polish the user interface and user experience - [x]
 
-## Milestone 7: UML and Video Recording - []
+## Milestone 7: UML and Video Recording - [x]
 
-a. Unified Model Language diagram - []
+a. Unified Model Language diagram - [x]
 
-b. Video Demo Recording - []
+b. Video Demo Recording - [x]
 
 ------------------------------------
 
