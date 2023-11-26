@@ -27,13 +27,10 @@ public class Creature
         this.family=family;
        
         // Condition to make sure EL is correctly initialized
-        if(evolutionLevel >= 1 && evolutionLevel <= 3)
-        {
-            this.evolutionLevel=evolutionLevel;
-        } 
-        else           
-        {
-            this.evolutionLevel=1;
+        if (evolutionLevel >= 1 && evolutionLevel <= 3) {
+            this.evolutionLevel = evolutionLevel;
+        } else {
+            throw new IllegalArgumentException("Invalid evolution level. It should be between 1 and 3.");
         }
         this.health=health;
     }
@@ -99,6 +96,8 @@ public class Creature
     {
         this.health = health;
     }
+
+    
 
     /**
      * Returns a string representation of the creature's attributes.
