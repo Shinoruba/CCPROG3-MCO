@@ -101,59 +101,68 @@ public class Inventory
     // Evolution methods:
 
 
-    /**
-     * Attempts to evolve two creatures from the user's inventory.
-     * Evolution is successful if the selected creatures have the same EL and family.
-     * Upon success, the selected creatures are removed, and the evolved creature is added.
-     * The new creature has the next EL of the same family.
-     *
-     * @param index1 The index of the first creature in the inventory.
-     * @param index2 The index of the second creature in the inventory.
-     * @return True if evolution is successful, false otherwise.
-     */
-    public boolean evolveCreatures(int index1, int index2) {
-        if (index1 < 0 || index1 >= creatures.size() || index2 < 0 || index2 >= creatures.size()) {
-            System.out.println("Invalid creature indices.");
-            return false;
-        }
-
-        Creature creature1 = creatures.get(index1);
-        Creature creature2 = creatures.get(index2);
-
-        // Check if the creatures are eligible for evolution
-        if (creature1.getEvolutionLevel() == creature2.getEvolutionLevel() &&
-            creature1.getFamily().equals(creature2.getFamily()) &&
-            creature1.getEvolutionLevel() < 3) {
-
-            // Evolution successful
-            System.out.println("Evolution SUCCESS!");
-
-            // Create the evolved creature
-            Creature evolvedCreature = new Creature(
-                    "Evolved " + creature1.getName() + " & " + creature2.getName(),
-                    creature1.getType(),
-                    creature1.getFamily(),
-                    creature1.getEvolutionLevel() + 1,
-                    creature1.getHealth() + creature2.getHealth()
-            );
-
-            // Remove the selected creatures from the inventory
-            creatures.remove(creature1);
-            creatures.remove(creature2);
-
-            // Add the evolved creature to the end of the inventory
-            creatures.add(evolvedCreature);
-
-            // Set the evolved creature as the active creature
-            setActiveCreature(evolvedCreature);
-
-            return true;
-        } else {
-            // Evolution failed
-            System.out.println("Evolution FAILS! Selected creatures are not eligible for evolution.");
-            return false;
-        }
+/**
+ * Attempts to evolve two creatures from the user's inventory.
+ * Evolution is successful if the selected creatures have the same EL and family.
+ * Upon success, the selected creatures are removed, and the evolved creature is added.
+ * The new creature has the next EL of the same family.
+ *
+ * @param index1 The index of the first creature in the inventory.
+ * @param index2 The index of the second creature in the inventory.
+ * @return True if evolution is successful, false otherwise.
+ */
+public boolean evolveCreatures(int index1, int index2) {
+    if (index1 < 0 || index1 >= creatures.size() || index2 < 0 || index2 >= creatures.size()) {
+        System.out.println("Invalid creature indices.");
+        return false;
     }
+
+    Creature creature1 = creatures.get(index1);
+    Creature creature2 = creatures.get(index2);
+
+    // Check if the creatures are eligible for evolution
+    if (creature1.getEvolutionLevel() == creature2.getEvolutionLevel() &&
+        creature1.getFamily().equals(creature2.getFamily()) &&
+        creature1.getEvolutionLevel() < 3 &&
+        !creature1.equals(creature2)) {
+
+        // Evolution successful
+        System.out.println("Evolution SUCCESS!");
+
+        // Determine the evolved creature's name based on family and evolution level
+        String evolvedName;
+        if (creature1.getEvolutionLevel() == 2) {
+            evolvedName = determineEvolvedNameEL2(creature1);
+        } else {
+            evolvedName = determineEvolvedNameEL3(creature1);
+        }
+
+        // Create the evolved creature
+        Creature evolvedCreature = new Creature(
+                evolvedName,
+                creature1.getType(),
+                creature1.getFamily(),
+                creature1.getEvolutionLevel() + 1,
+                creature1.getHealth() + creature2.getHealth()
+        );
+
+        // Remove the selected creatures from the inventory
+        creatures.remove(creature1);
+        creatures.remove(creature2);
+
+        // Add the evolved creature to the end of the inventory
+        creatures.add(evolvedCreature);
+
+        // Set the evolved creature as the active creature
+        setActiveCreature(evolvedCreature);
+
+        return true;
+    } else {
+        // Evolution failed
+        System.out.println("Evolution FAILS! Selected creatures are not eligible for evolution.");
+        return false;
+    }
+}
 
     /**
      * Displays the evolution screen.
@@ -183,7 +192,6 @@ public class Inventory
 
         // Display evolution prompts
         if (evolutionSuccess) {
-            System.out.println("Evolution is a SUCCESS!");
             System.out.println("---");
             System.out.println("Evolved Creature: " + getActiveCreature());
         } else {
@@ -192,4 +200,69 @@ public class Inventory
 
         System.out.println("=============");
     }
+
+ /**
+ * Determines the name of the evolved creature for Evolution Level 2 (EL2) based on family.
+ *
+ * @param creature The creature to evolve.
+ * @return The name of the evolved creature for EL2.
+ */
+private String determineEvolvedNameEL2(Creature creature) {
+    String creatureName = creature.getName();
+    switch (creatureName) {
+        case "A": // Fire
+            return "STRAWLEON EL2";
+        case "B": // Fire
+            return "CHOCOFLUFF EL2";
+        case "C": // Fire
+            return "PARFURE EL2";
+        case "D": // Grass
+            return "CHOCOSAUR EL2";
+        case "E": // Grass
+            return "GOLBERRY EL2";
+        case "F": // Grass
+            return "KIRLICAKE EL2";
+        case "G": // Water
+            return "TARTORTLE EL2";
+        case "H": // Water
+            return "CHOCOLISH EL2";
+        case "I": // Water
+            return "DEWICE EL2";
+        default:
+            return "Unknown";
+    }
+}
+
+/**
+ * Determines the name of the evolved creature for Evolution Level 3 (EL3) based on family.
+ *
+ * @param creature The creature to evolve.
+ * @return The name of the evolved creature for EL3.
+ */
+private String determineEvolvedNameEL3(Creature creature) {
+    switch (creature.getFamily()) {
+        case "A": // Fire
+            return "STRAWIZARD EL3";
+        case "B": // Fire
+            return "CANDAROS EL3";
+        case "C": // Fire
+            return "PARFELURE EL3";
+        case "D": // Grass
+            return "FUDGASAUR EL3";
+        case "E": // Grass
+            return "CROBERRY EL3";
+        case "F": // Grass
+            return "VELVEVOIR EL3";
+        case "G": // Water
+            return "PIESTOISE EL3";
+        case "H": // Water
+            return "ICESUNDAE EL3";
+        case "I": // Water
+            return "SAMURCONE EL3";
+        default:
+            return "Unknown";
+    }
+}
+
+
 }
