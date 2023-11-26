@@ -4,11 +4,11 @@ import java.util.*; // too lazy, might as well get everything lmao
  * 
  *  @author Shinoruba
  *  @author JSTP8330
- *  @version 1.2
+ *  @version 2
  */
 public class Inventory 
 {
-    private ArrayList<Creature> creatures;  // stores creatures
+    private final ArrayList<Creature> creatures;  // stores creatures
     private Creature activeCreature;        // represents the current active creature
 
     /**
@@ -23,66 +23,67 @@ public class Inventory
         activeCreature = null;              // set the active creature to null for now
     }
 
-        /**
-         * Adds a creature to the inventory.
-         *
-         * @param creature The creature to add to the inventory.
-         */
-        public void addCreature(Creature creature)
-        {
-            creatures.add(creature);        // uses .add() method to add creature to arraylist
-            if(creature == activeCreature)
-            {
+    /**
+     * Adds a creature to the inventory.
+     *
+     * @param creature The creature to add to the inventory.
+     * @throws IllegalArgumentException if creature is null.
+     */
+    public void addCreature(Creature creature) {
+        if (creature != null) {
+            creatures.add(creature);
+            if (creature == activeCreature) {
                 setActiveCreature(creature);
             }
+        } else {
+            throw new IllegalArgumentException("Creature cannot be null.");
         }
+    }
 
-        /**
-         * Removes a creature from the inventory.
-         *
-         * @param creature The creature to remove from the inventory.
-         */
-        public void removeCreature(Creature creature)
-        {
-            creatures.remove(creature);     // uses .remove() method to remove creature from arraylist, similar to it's .add() method
-            if(creature == activeCreature)
-            {
+    /**
+     * Removes a creature from the inventory.
+     *
+     * @param creature The creature to remove from the inventory.
+     * @throws IllegalArgumentException if creature is null.
+     */
+    public void removeCreature(Creature creature) {
+        if (creature != null) {
+            creatures.remove(creature);
+            if (creature == activeCreature) {
                 setActiveCreature(null);
             }
+        } else {
+            throw new IllegalArgumentException("Creature cannot be null.");
         }
+    }
 
     /**
      * Retrieves the active creature in the inventory.
      *
      * @return The active creature or null if none is active.
      */
-    public Creature getActiveCreature()
-    {
+    public Creature getActiveCreature() {
         return activeCreature;
     }
-
 
     /**
      * Sets the active creature in the inventory.
      *
      * @param creature The creature to set as active.
      */
-    public void setActiveCreature(Creature creature)
-    {
-        if(creatures.contains(creature))
-        {
+    public void setActiveCreature(Creature creature) {
+        if (creatures.contains(creature)) {
             activeCreature = creature;
         }
     }
 
     /**
-     * Returns a copy of the list of all creatures in the inventory.
+     * Returns an unmodifiable view of the list of all creatures in the inventory.
      *
-     * @return A new ArrayList containing all creatures in the inventory.
+     * @return An unmodifiable list containing all creatures in the inventory.
      */
-    public ArrayList<Creature> getAllCreatures() 
-    {
-        return new ArrayList<>(creatures);
+    public List<Creature> getAllCreatures() {
+        return Collections.unmodifiableList(new ArrayList<>(creatures));
     }
 
     /**
@@ -90,8 +91,105 @@ public class Inventory
      *
      * @return The number of creatures in the inventory.
      */
-    public int getSize()
-    {
+    public int getSize() {
         return creatures.size();
+    }
+
+
+
+//========================================================================
+    // Evolution methods:
+
+
+    /**
+     * Attempts to evolve two creatures from the user's inventory.
+     * Evolution is successful if the selected creatures have the same EL and family.
+     * Upon success, the selected creatures are removed, and the evolved creature is added.
+     * The new creature has the next EL of the same family.
+     *
+     * @param index1 The index of the first creature in the inventory.
+     * @param index2 The index of the second creature in the inventory.
+     * @return True if evolution is successful, false otherwise.
+     */
+    public boolean evolveCreatures(int index1, int index2) {
+        if (index1 < 0 || index1 >= creatures.size() || index2 < 0 || index2 >= creatures.size()) {
+            System.out.println("Invalid creature indices.");
+            return false;
+        }
+
+        Creature creature1 = creatures.get(index1);
+        Creature creature2 = creatures.get(index2);
+
+        // Check if the creatures are eligible for evolution
+        if (creature1.getEvolutionLevel() == creature2.getEvolutionLevel() &&
+            creature1.getFamily().equals(creature2.getFamily()) &&
+            creature1.getEvolutionLevel() < 3) {
+
+            // Evolution successful
+            System.out.println("Evolution SUCCESS!");
+
+            // Create the evolved creature
+            Creature evolvedCreature = new Creature(
+                    "Evolved " + creature1.getName() + " & " + creature2.getName(),
+                    creature1.getType(),
+                    creature1.getFamily(),
+                    creature1.getEvolutionLevel() + 1,
+                    creature1.getHealth() + creature2.getHealth()
+            );
+
+            // Remove the selected creatures from the inventory
+            creatures.remove(creature1);
+            creatures.remove(creature2);
+
+            // Add the evolved creature to the end of the inventory
+            creatures.add(evolvedCreature);
+
+            // Set the evolved creature as the active creature
+            setActiveCreature(evolvedCreature);
+
+            return true;
+        } else {
+            // Evolution failed
+            System.out.println("Evolution FAILS! Selected creatures are not eligible for evolution.");
+            return false;
+        }
+    }
+
+    /**
+     * Displays the evolution screen.
+     * Shows selected creatures' images, names, and EL.
+     * Shows evolution prompts (SUCCESS or FAIL).
+     * Shows the evolved creature upon successful evolution.
+     *
+     * @param index1 The index of the first creature in the inventory.
+     * @param index2 The index of the second creature in the inventory.
+     */
+    public void displayEvolutionScreen(int index1, int index2) {
+        if (index1 < 0 || index1 >= creatures.size() || index2 < 0 || index2 >= creatures.size()) {
+            System.out.println("Invalid creature indices.");
+            return;
+        }
+
+        Creature creature1 = creatures.get(index1);
+        Creature creature2 = creatures.get(index2);
+
+        System.out.println("Evolution Screen:");
+        System.out.println("[1] " + creature1.getName() + " (EL" + creature1.getEvolutionLevel() + ")");
+        System.out.println("[2] " + creature2.getName() + " (EL" + creature2.getEvolutionLevel() + ")");
+        System.out.println("---");
+
+        // Attempt to evolve creatures
+        boolean evolutionSuccess = evolveCreatures(index1, index2);
+
+        // Display evolution prompts
+        if (evolutionSuccess) {
+            System.out.println("Evolution is a SUCCESS!");
+            System.out.println("---");
+            System.out.println("Evolved Creature: " + getActiveCreature());
+        } else {
+            System.out.println("Evolution FAILS! Selected creatures are not eligible for evolution.");
+        }
+
+        System.out.println("=============");
     }
 }
