@@ -121,10 +121,8 @@ public class Area
          */    
         public boolean shouldEncounterCreature() // Used in exploreArea() method
         {
-            Random random = new Random();
-            int chance = random.nextInt(100); // Generate a random number between 0 and 99
-
-            return chance < 40 ; // 40% chance to encounter a creature
+            int encounterChanceThreshold = 40;
+            return random.nextInt(100) < encounterChanceThreshold; // 40% chance to encounter a creature
         }
 
         /**
