@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.*;
 import java.util.Random;
 /**
  *  The BattlePhase class handles the Battle Phase logic ( obviously lol ), this will include actions like
@@ -14,6 +14,11 @@ public class BattlePhase
     private Inventory currentInventory;
     private int maxActions = 3; // Max number of actions per battle
     private Random random = new Random();
+
+    // for laughs and giggles, let's try this  
+    private static final int MAX_DAMAGE = 10;
+    private static final int MIN_DAMAGE = 1;
+
 
 
     /**
@@ -68,7 +73,7 @@ public class BattlePhase
                     actionsRemaining--;
                     if(enemyCreature.getHealth() > 0) 
                     {
-                        int enemyDamage = calculateEnemyDamage(enemyCreature, userCreature);
+                        int enemyDamage = calculateEnemyDamage();
                         userCreature.setHealth(userCreature.getHealth() - enemyDamage);
                         System.out.println(enemyCreature.getName() + " attacks " + userCreature.getName() + " for " + enemyDamage + " damage.");
                     }
@@ -149,7 +154,7 @@ public void setCurrentInventory(Inventory currentInventory)
 
     private void displayInventory() 
     {
-        ArrayList<Creature> allCreatures = currentInventory.getAllCreatures();
+        List<Creature> allCreatures = currentInventory.getAllCreatures();
         System.out.println("Your inventory:");
         
         for(int i = 0; i < allCreatures.size(); i++) 
@@ -178,11 +183,11 @@ public void setCurrentInventory(Inventory currentInventory)
      */
     private int calculateUserDamage(Creature attacker, Creature defender) 
     {
-        Random random = new Random();
-        int damage = random.nextInt(10) + 1; // Random damage between 1 and 10
-
-        if(isTypeStrongAgainst(attacker.getType(), defender.getType())) 
-            damage *= 1.5; // Type advantage: damage is increased by 50%
+        int damage = random.nextInt(MAX_DAMAGE - MIN_DAMAGE + 1) + MIN_DAMAGE;
+            if(isTypeStrongAgainst(attacker.getType(), defender.getType())) 
+            {
+                damage *= 1.5;// damage is increased by 50%
+            }
         return damage;
     }
 
@@ -195,11 +200,9 @@ public void setCurrentInventory(Inventory currentInventory)
      * @param defender The creature that is defending. ( Player )
      * @return The calculated damage value.
      */
-    private int calculateEnemyDamage(Creature attacker, Creature defender) 
+    private int calculateEnemyDamage()
     {
-        Random random = new Random();
-        int damage = random.nextInt(10) + 1; // Random damage between 1 and 10
-        return damage;
+        return random.nextInt(MAX_DAMAGE - MIN_DAMAGE + 1) + MIN_DAMAGE;
     }
 
 
