@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 /**
  * The `MainGame` class controls the flow of the game, including the menu, user inputs, and transitions between exploration and battle.
@@ -102,7 +103,7 @@ public class MainGame
              */
             private void viewInventory() // 1. View Inventory
             {
-                ArrayList<Creature> allCreatures = currentInventory.getAllCreatures();
+                List<Creature> allCreatures = currentInventory.getAllCreatures();
                 Creature activeCreature = currentInventory.getActiveCreature();// Get current active creature
                 int i;
                 System.out.println("\nInventory:");
@@ -233,7 +234,21 @@ public class MainGame
              */
             private void evolveCreature() // 3. Evolve the Creature
             {
-                System.out.println("Not yet implemented! Please wait for future updates and patches.");    
+                viewInventory();
+
+                if (currentInventory.getSize() < 2) {
+                    System.out.println("You need at least two creatures to evolve. Capture more creatures!");
+                    return;
+                }
+            
+                System.out.print("Enter the number of the first creature for evolution: ");
+                int index1 = handler.getUserChoice(1, currentInventory.getSize()) - 1;
+            
+                System.out.print("Enter the number of the second creature for evolution: ");
+                int index2 = handler.getUserChoice(1, currentInventory.getSize()) - 1;
+            
+                // Display evolution screen
+                currentInventory.displayEvolutionScreen(index1, index2);  
             }
 
             /**
