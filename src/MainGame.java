@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 /**
@@ -6,7 +7,7 @@ import java.util.Scanner;
  * 
  * @author Shinoruba
  * @author JSTP8330
- * @version 2.1
+ * @version 2.3
  */
 public class MainGame 
 {
@@ -23,7 +24,7 @@ public class MainGame
     public MainGame() 
     {
         currentInventory = new Inventory();
-        currentArea = new Area(5,1);
+        setCurrentArea(1);
         scan = new Scanner(System.in);
     }
 
@@ -35,6 +36,31 @@ public class MainGame
     {
         return currentInventory;
     }
+
+/**
+ * Sets the current area based on the specified area level.
+ *
+ * @param areaLevel The level or ID of the area.
+ */
+private void setCurrentArea(int areaLevel) 
+{
+    switch (areaLevel) 
+    {
+        case 1:
+            currentArea = new Area1();
+            break;
+        case 2:
+            currentArea = new Area2();
+            break;
+        case 3:
+            currentArea = new Area3();
+            break;
+        default:
+            throw new IllegalArgumentException("Invalid area level: " + areaLevel);
+    }
+    currentArea.setCurrentX(0);
+    currentArea.setCurrentY(0);
+}
 
  /**
      * Starts the game.
@@ -185,46 +211,63 @@ public class MainGame
             /**
              * Allows the player to explore the current area, potentially encountering creatures ( there is an easter egg creature ).
              */
-            private void exploreArea() // 2. Explore Area 
+            private void exploreArea() // 2. Explore Area
             {
-                System.out.println("Exploring the area...");
-
+                System.out.println("Exploring the area...\n");
+        
+                // Display the available areas for exploration
+                System.out.println("Select an area to explore:");
+                System.out.println("1: Area 1 (5x1)");
+                System.out.println("2: Area 2 (3x3)");
+                System.out.println("3: Area 3 (4x4)");
+        
+                // Get the user's choice for the area
+                int areaChoice = getUserAreaChoice();
+        
+                // Set the current area based on the user's choice
+                switch (areaChoice) {
+                    case 1:
+                        currentArea = new Area1();
+                        break;
+                    case 2:
+                        currentArea = new Area2();
+                        break;
+                    case 3:
+                        currentArea = new Area3();
+                        break;
+                }
+        
                 // Display the current area screen with the player's position marked.
                 currentArea.displayArea();
-
+        
                 // Allow the player to move within the area.
                 Direction moveDirection = getPlayerMoveDirection();
-                    encounteredEnemy = null;
-
-                if(encounteredEnemy == null) 
-                {
-                    encounteredEnemy = currentArea.determineEncounteredCreature();
+                encounteredEnemy = null;
+        
+                if (encounteredEnemy == null) {
+                    encounteredEnemy = currentArea.encounteredCreature();
                     encounteredEnemy.getHealth();
                 }
-
+        
                 System.out.println("You've encountered a creature!");
-
+        
                 Creature userCreature = currentInventory.getActiveCreature();
                 BattlePhase battle = new BattlePhase(userCreature, encounteredEnemy, currentInventory);
                 battle.startBattle(encounteredEnemy.getHealth()); // Use enemy's actual health
-
-                if(userCreature.getHealth() <= 0) 
-                {
+        
+                if (userCreature.getHealth() <= 0) {
                     System.out.println("Your creature was defeated!");
                     currentInventory.removeCreature(userCreature);
                     System.out.println("You've been returned to a safe location.");
-                } 
-                else if(encounteredEnemy.getHealth() <= 0) 
-                {
+                } else if (encounteredEnemy.getHealth() <= 0) {
                     System.out.println("You defeated the enemy creature!");
-                    if (battle.tryCaptureCreature(encounteredEnemy)) 
-                    {
+                    if (battle.tryCaptureCreature(encounteredEnemy)) {
                         System.out.println("You've successfully captured " + encounteredEnemy.getName() + "!");
                         currentInventory.addCreature(encounteredEnemy);
-                    } else 
-                        System.out.println("Capture attempt failed.");   
+                    } else
+                        System.out.println("Capture attempt failed.");
                 }
-
+        
                 // Update the player's position based on the move direction.
                 updatePlayerPosition(moveDirection);
             }
@@ -405,6 +448,24 @@ public class MainGame
             }catch(java.util.InputMismatchException e)
             {
                 System.out.println("Invalid input. Please enter a valid number (1-4).");
+                scan.next(); // Consume the invalid input
+            }
+        }
+    }
+
+    /**
+     * Gets the user's choice for the area (1-3) and validates it.
+     *
+     * @return The validated user's choice.
+     */
+    private int getUserAreaChoice() {
+        int choice;
+        while (true) {
+            try {
+                choice = handler.getUserChoice(1, 3);
+                return choice;
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid number (1-3).");
                 scan.next(); // Consume the invalid input
             }
         }
