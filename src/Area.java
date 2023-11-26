@@ -5,14 +5,14 @@ import java.util.*;
  * 
  *  @author Shinoruba
  *  @author JSTP8330
- *  @version 1.3
+ *  @version 2
  */
 public class Area
 {
    private int[][] tiles; // 2D array of area's tiles
    private int currentX, currentY; // Current X and Y position 
    private int i, j; // Indexes of tiles
-   private Random random;
+   protected Random random; // to be used in Area2 its pissing me off
 
 
     /**
@@ -36,6 +36,7 @@ public class Area
             }
         }
     }
+
             
     
 // ==================================================================
@@ -125,26 +126,79 @@ public class Area
             return random.nextInt(100) < encounterChanceThreshold; // 40% chance to encounter a creature
         }
 
-        /**
-         * Determines the creature to be encountered in the area.
-         *
-         * @return The encountered creature.
-         */
-        public Creature determineEncounteredCreature()
-        {
-                List<Creature> possibleCreatures = new ArrayList<>();
-            possibleCreatures.add(new Creature("Strawander", "Fire", "Family A", 1, 50));
-            possibleCreatures.add(new Creature("Chocowool", "Fire", "Family B", 1, 50));
-            possibleCreatures.add(new Creature("Parfwit", "Fire", "Family C", 1, 50));
-            possibleCreatures.add(new Creature("Brownisaur", "Grass", "Family D", 1, 50));
-            possibleCreatures.add(new Creature("Frubat", "Grass", "Family E", 1, 50));
-            possibleCreatures.add(new Creature("Malts", "Grass", "Family F", 1, 50));
-            possibleCreatures.add(new Creature("Squirpie", "Water", "Family G", 1, 50));
-            possibleCreatures.add(new Creature("Chocolite", "Water", "Family H", 1, 50));
-            possibleCreatures.add(new Creature("Oshacone", "Water", "Family I", 1, 50));
-            possibleCreatures.add(new Creature("Nicdao", "Professor", "Family W", 1, 50));
-                int randomIndex = random.nextInt(possibleCreatures.size());
+    /**
+     * Handles the encounter of creatures in the area based on their Evolution Level (EL).
+     *
+     * @return The encountered creature.
+     */
+    public Creature encounteredCreature() {
+        int el = random.nextInt(3) + 1;
 
-        return possibleCreatures.get(randomIndex);
+        switch (el) {
+            case 1:
+                return encounterCreatureEL1();
+            case 2:
+                return encounterCreatureEL2();
+            case 3:
+                return encounterCreatureEL3();
+            default:
+                throw new IllegalStateException("Unexpected value: " + el);
+        }
+    }
+
+        protected Creature encounterCreatureEL1() {
+            List<Creature> possibleCreaturesEL1 = Arrays.asList(
+                    new Creature("Strawander", "Fire", "Family A", 1, 50),
+                    new Creature("Chocowool", "Fire", "Family B", 1, 50),
+                    new Creature("Parfwit", "Fire", "Family C", 1, 50),
+                    new Creature("Brownisaur", "Grass", "Family D", 1, 50),
+                    new Creature("Frubat", "Grass", "Family E", 1, 50),
+                    new Creature("Malts", "Grass", "Family F", 1, 50),
+                    new Creature("Squirpie", "Water", "Family G", 1, 50),
+                    new Creature("Chocolite", "Water", "Family H", 1, 50),
+                    new Creature("Oshacone", "Water", "Family I", 1, 50),
+                    new Creature("Nicdao", "Professor", "Family W", 1, 50)
+            );
+    
+            return getRandomCreature(possibleCreaturesEL1);
+        }
+    
+        protected Creature encounterCreatureEL2() {
+            List<Creature> possibleCreaturesEL2 = Arrays.asList(
+                    new Creature("Strawleon", "Fire", "Family A", 2, 60),
+                    new Creature("Chocofluff", "Fire", "Family B", 2, 60),
+                    new Creature("Parfure", "Fire", "Family C", 2, 60),
+                    new Creature("Chocosaur", "Grass", "Family D", 2, 60),
+                    new Creature("Golberry", "Grass", "Family E", 2, 60),
+                    new Creature("Kirliecake", "Grass", "Family F", 2, 60),
+                    new Creature("Tartortle", "Water", "Family G", 2, 60),
+                    new Creature("Chocolish", "Water", "Family H", 2, 60),
+                    new Creature("Dewice", "Water", "Family I", 2, 60),
+                    new Creature("Super Nicdao", "Professor", "Family W", 2, 500)
+            );
+    
+            return getRandomCreature(possibleCreaturesEL2);
+        }
+    
+        protected Creature encounterCreatureEL3() {
+            List<Creature> possibleCreaturesEL3 = Arrays.asList(
+                    new Creature("Strawizard", "Fire", "Family A", 3, 70),
+                    new Creature("Candaros", "Fire", "Family B", 3, 70),
+                    new Creature("Parfelure", "Fire", "Family C", 3, 70),
+                    new Creature("Fudgansaur", "Grass", "Family D", 3, 70),
+                    new Creature("Croberry", "Grass", "Family E", 3, 70),
+                    new Creature("Velvevoir", "Grass", "Family F", 3, 70),
+                    new Creature("Piestoise", "Water", "Family G", 3, 70),
+                    new Creature("Icesundae", "Water", "Family H", 3, 70),
+                    new Creature("Samurcone", "Water", "Family I", 3, 70),
+                    new Creature("Ultimate Nicdao", "Professor", "Family W", 3, 5000)
+            );
+    
+            return getRandomCreature(possibleCreaturesEL3);
+        }
+    
+        protected Creature getRandomCreature(List<Creature> creatures) {
+            int randomIndex = random.nextInt(creatures.size());
+            return creatures.get(randomIndex);
         }
 }
