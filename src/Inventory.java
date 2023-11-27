@@ -1,6 +1,10 @@
 import java.util.*; // too lazy, might as well get everything lmao
 /**
- *  The Inventory class manages the user's collection of creatures
+ *  The Inventory class manages the user's collection of creatures.
+ *  Version 2.0: Added the ability to evolve creature
+ * 
+ *  Model-View-Controller (MVC) pattern: MODEL = Represents the data and business logic related to the player's inventory.
+ * 
  * 
  *  @author Shinoruba
  *  @author JSTP8330
@@ -211,23 +215,23 @@ private String determineEvolvedNameEL2(Creature creature) {
     String creatureFamily = creature.getFamily();
     switch (creatureFamily) {
         case "Family A": // Fire
-            return "STRAWLEON EL2";
+            return "Strawleon";
         case "Family B": // Fire
-            return "CHOCOFLUFF EL2";
+            return "Chocofluff";
         case "Family C": // Fire
-            return "PARFURE EL2";
+            return "Parfure";
         case "Family D": // Grass
-            return "CHOCOSAUR EL2";
+            return "Chocosaur";
         case "Family E": // Grass
-            return "GOLBERRY EL2";
+            return "Golberry";
         case "Family F": // Grass
-            return "KIRLICAKE EL2";
+            return "Kirlikake";
         case "Family G": // Water
-            return "TARTORTLE EL2";
+            return "Tartortle";
         case "Family H": // Water
-            return "CHOCOLISH EL2";
+            return "Chocolish";
         case "Family I": // Water
-            return "DEWICE EL2";
+            return "Dewice";
         default:
             return "Unknown";
     }
@@ -243,27 +247,25 @@ private String determineEvolvedNameEL3(Creature creature) {
     String creatureFamily = creature.getFamily();
     switch (creatureFamily) {
         case "Family A": // Fire
-            return "STRAWIZARD EL3";
+            return "Strawizard";
         case "Family B": // Fire
-            return "CANDAROS EL3";
+            return "Candaros";
         case "Family C": // Fire
-            return "PARFELURE EL3";
+            return "Parfelure";
         case "Family D": // Grass
-            return "FUDGASAUR EL3";
+            return "Fudgasaur";
         case "Family E": // Grass
-            return "CROBERRY EL3";
+            return "Croberry";
         case "Family F": // Grass
-            return "VELVEVOIR EL3";
+            return "Velvevoir";
         case "Family G": // Water
-            return "PIESTOISE EL3";
+            return "Piestoise";
         case "Family H": // Water
-            return "ICESUNDAE EL3";
+            return "Icesundae";
         case "Family I": // Water
-            return "SAMURCONE EL3";
+            return "Samurcone";
         default:
             return "Unknown";
     }
 }
-
-
 }
