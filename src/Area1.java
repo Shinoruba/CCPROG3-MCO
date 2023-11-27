@@ -10,8 +10,10 @@ public class Area1 extends Area {
 
     /**
      * Constructs an Area1 object, initializing it with a specific size (5x1).
+     * @param j
+     * @param i
      */
-    public Area1() {
+    public Area1(int i, int j) {
         super(5, 1);
     }
 
