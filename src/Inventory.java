@@ -131,7 +131,7 @@ public boolean evolveCreatures(int index1, int index2) {
 
         // Determine the evolved creature's name based on family and evolution level
         String evolvedName;
-        if (creature1.getEvolutionLevel() == 2) {
+        if (creature1.getEvolutionLevel() == 1) {
             evolvedName = determineEvolvedNameEL2(creature1);
         } else {
             evolvedName = determineEvolvedNameEL3(creature1);
@@ -208,25 +208,25 @@ public boolean evolveCreatures(int index1, int index2) {
  * @return The name of the evolved creature for EL2.
  */
 private String determineEvolvedNameEL2(Creature creature) {
-    String creatureName = creature.getName();
-    switch (creatureName) {
-        case "A": // Fire
+    String creatureFamily = creature.getFamily();
+    switch (creatureFamily) {
+        case "Family A": // Fire
             return "STRAWLEON EL2";
-        case "B": // Fire
+        case "Family B": // Fire
             return "CHOCOFLUFF EL2";
-        case "C": // Fire
+        case "Family C": // Fire
             return "PARFURE EL2";
-        case "D": // Grass
+        case "Family D": // Grass
             return "CHOCOSAUR EL2";
-        case "E": // Grass
+        case "Family E": // Grass
             return "GOLBERRY EL2";
-        case "F": // Grass
+        case "Family F": // Grass
             return "KIRLICAKE EL2";
-        case "G": // Water
+        case "Family G": // Water
             return "TARTORTLE EL2";
-        case "H": // Water
+        case "Family H": // Water
             return "CHOCOLISH EL2";
-        case "I": // Water
+        case "Family I": // Water
             return "DEWICE EL2";
         default:
             return "Unknown";
@@ -240,24 +240,25 @@ private String determineEvolvedNameEL2(Creature creature) {
  * @return The name of the evolved creature for EL3.
  */
 private String determineEvolvedNameEL3(Creature creature) {
-    switch (creature.getFamily()) {
-        case "A": // Fire
+    String creatureFamily = creature.getFamily();
+    switch (creatureFamily) {
+        case "Family A": // Fire
             return "STRAWIZARD EL3";
-        case "B": // Fire
+        case "Family B": // Fire
             return "CANDAROS EL3";
-        case "C": // Fire
+        case "Family C": // Fire
             return "PARFELURE EL3";
-        case "D": // Grass
+        case "Family D": // Grass
             return "FUDGASAUR EL3";
-        case "E": // Grass
+        case "Family E": // Grass
             return "CROBERRY EL3";
-        case "F": // Grass
+        case "Family F": // Grass
             return "VELVEVOIR EL3";
-        case "G": // Water
+        case "Family G": // Water
             return "PIESTOISE EL3";
-        case "H": // Water
+        case "Family H": // Water
             return "ICESUNDAE EL3";
-        case "I": // Water
+        case "Family I": // Water
             return "SAMURCONE EL3";
         default:
             return "Unknown";
