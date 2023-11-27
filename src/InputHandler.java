@@ -1,11 +1,14 @@
 import java.util.Scanner;
 /**
  *  The InputHandler class handles inputs, jokes aside- this is a helper class that can have 
- *  multiple classes use the same method for user inputs
+ *  multiple classes use the same method for user inputs.
+ * 
+ *  Model-View-Controller (MVC) pattern: CONTROLLER = Handles user input and validates it.
+ * 
  * 
  *  @author Shinoruba
  *  @author JSTP8330
- *  @version 1.1
+ *  @version 1.2
  */
 public class InputHandler 
 {
