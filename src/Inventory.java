@@ -1,4 +1,4 @@
-import java.util.*; // too lazy, might as well get everything lmao
+import java.util.*;
 /**
  *  The Inventory class manages the user's collection of creatures.
  *  Version 2.0: Added the ability to evolve creature
@@ -8,7 +8,7 @@ import java.util.*; // too lazy, might as well get everything lmao
  * 
  *  @author Shinoruba
  *  @author JSTP8330
- *  @version 2
+ *  @version 2.1
  */
 public class Inventory 
 {
@@ -232,6 +232,8 @@ private String determineEvolvedNameEL2(Creature creature) {
             return "Chocolish";
         case "Family I": // Water
             return "Dewice";
+        case "Family J": // Professor
+            return "Super Nicdao";
         default:
             return "Unknown";
     }
@@ -264,6 +266,8 @@ private String determineEvolvedNameEL3(Creature creature) {
             return "Icesundae";
         case "Family I": // Water
             return "Samurcone";
+        case "Family J": // Professor
+            return "Ultimate Nicdao";
         default:
             return "Unknown";
     }
