@@ -1,12 +1,13 @@
 import java.util.*;
-import java.util.Random;
 /**
  *  The BattlePhase class handles the Battle Phase logic ( obviously lol ), this will include actions like
- *  attacking, swapping, catching, and running away like a loser
+ *  attacking, swapping, catching, and running away like a loser.
+ * 
+ *  Model-View-Controller (MVC) pattern: VIEW = Manages the view during battles.
  * 
  *  @author Shinoruba
  *  @author JSTP8330
- *  @version 1.5
+ *  @version 1.6
  */
 public class BattlePhase 
 {
