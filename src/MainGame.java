@@ -13,7 +13,7 @@ import java.util.Scanner;
  * 
  * @author Shinoruba
  * @author JSTP8330
- * @version 2.3
+ * @version 2.4
  */
 public class MainGame 
 {
@@ -53,19 +53,17 @@ private void setCurrentArea(int areaLevel)
     switch (areaLevel) 
     {
         case 1:
-            currentArea = new Area1();
+            currentArea = new Area1(5,1);
             break;
         case 2:
-            currentArea = new Area2();
+            currentArea = new Area2(3,3);
             break;
         case 3:
-            currentArea = new Area3();
+            currentArea = new Area3(4,4);
             break;
         default:
             throw new IllegalArgumentException("Invalid area level: " + areaLevel);
     }
-    currentArea.setCurrentX(0);
-    currentArea.setCurrentY(0);
 }
 
  /**
@@ -95,9 +93,9 @@ private void setCurrentArea(int areaLevel)
     private void selectStarterCreature() // Add a method to select the starter creature
     {
         // 3 El1 starter creatures, one from each element!
-        Creature starterCreature1 = new Creature("Strawander", "Fire", "A", 1, 100);
-        Creature starterCreature2 = new Creature("Squirpie", "Water", "G", 1, 100);
-        Creature starterCreature3 = new Creature("Brownisaur", "Grass", "D", 1, 100);
+        Creature starterCreature1 = new Creature("Strawander", "Fire", "Family A", 1, 100);
+        Creature starterCreature2 = new Creature("Squirpie", "Water", "Family G", 1, 100);
+        Creature starterCreature3 = new Creature("Brownisaur", "Grass", "Family D", 1, 100);
         // Display a list of EL1 creatures for the user to choose from
         ArrayList<Creature> el1Creatures = new ArrayList<>();
         el1Creatures.add(starterCreature1);
@@ -233,15 +231,16 @@ private void setCurrentArea(int areaLevel)
                 // Set the current area based on the user's choice
                 switch (areaChoice) {
                     case 1:
-                        currentArea = new Area1();
+                        currentArea = new Area1(5,1);
                         break;
                     case 2:
-                        currentArea = new Area2();
+                        currentArea = new Area2(3,3);
                         break;
                     case 3:
-                        currentArea = new Area3();
+                        currentArea = new Area3(4,4);
                         break;
                 }
+                
         
                 // Display the current area screen with the player's position marked.
                 currentArea.displayArea();
@@ -306,7 +305,7 @@ private void setCurrentArea(int areaLevel)
              */
             private void exitGame() // 4. Exit the game bye bye aaauughhh please help me
             {
-                System.out.println("Exiting the game. Give us a decent grade for effort :( thank  you!");
+                System.out.println("Exiting the game.");
                 scan.close();
                 System.exit(0); // method terminates JVM bye bye bye bye bye bye bye bye help me
             }
