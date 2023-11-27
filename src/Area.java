@@ -1,7 +1,10 @@
 import java.util.*;
 
 /**
- *  The Area class handles area exploration done by the user
+ *  The Area class handles area exploration done by the user.
+ *  Version 2.0: Area is the superclass of Area(1,2,3).
+ * 
+ *  Model-View-Controller (MVC) pattern: MODEL = Represents the data and logic related to the 3 different areas.
  * 
  *  @author Shinoruba
  *  @author JSTP8330
