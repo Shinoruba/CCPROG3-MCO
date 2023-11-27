@@ -101,11 +101,11 @@ public class Area
             {              
                 System.out.println("Current Area:");
 
-                for (int i = 0; i < tiles.length; i++) 
+                for (int i = 0; i < tiles.length; i++) // Iterate through each row
                 {
-                    for (int j = 0; j < tiles[i].length; j++) 
+                    for (int j = 0; j < tiles[i].length; j++) // Iterate through each column in the current row
                     {
-                        if (i == currentX && j == currentY) 
+                        if (i == currentX && j == currentY) // Check if the current position (i, j) is the player's position
                         {
                             System.out.print("P "); // Player's position
                         } 
@@ -116,7 +116,36 @@ public class Area
                     }
                     System.out.println(); // Move to the next row
                 }
-            }    
+                // Inside displayArea()
+            System.out.println("Player's position: (" + currentX + ", " + currentY + ")");
+            }
+            
+             /**
+             * Displays the current area layout, marking the player's position with "P".
+             * TO BE USED IN GUI PART !!!
+             * @return A string representation of the current area.
+             */
+            public String displayAreaToString() {
+                StringBuilder areaString = new StringBuilder();
+
+                for (int i = 0; i < tiles.length; i++) {
+                    for (int j = 0; j < tiles[i].length; j++) {
+                        if (i == currentX && j == currentY) {
+                            areaString.append("P "); // Player's position
+                        } else {
+                            areaString.append(". "); // Empty tile
+                        }
+                    }
+                    areaString.append("\n");
+                }
+
+                areaString.append("Player's position: (").append(currentX).append(", ").append(currentY).append(")");
+
+                return areaString.toString();
+            }
+
+
+
  
         /**
          * Determines whether the player should encounter a creature in the area.
@@ -168,15 +197,15 @@ public class Area
     
         protected Creature encounterCreatureEL2() {
             List<Creature> possibleCreaturesEL2 = Arrays.asList(
-                    new Creature("Strawleon", "Fire", "Family A", 2, 60),
-                    new Creature("Chocofluff", "Fire", "Family B", 2, 60),
-                    new Creature("Parfure", "Fire", "Family C", 2, 60),
-                    new Creature("Chocosaur", "Grass", "Family D", 2, 60),
-                    new Creature("Golberry", "Grass", "Family E", 2, 60),
-                    new Creature("Kirliecake", "Grass", "Family F", 2, 60),
-                    new Creature("Tartortle", "Water", "Family G", 2, 60),
-                    new Creature("Chocolish", "Water", "Family H", 2, 60),
-                    new Creature("Dewice", "Water", "Family I", 2, 60),
+                    new Creature("Strawleon", "Fire", "Family A", 2, 50),
+                    new Creature("Chocofluff", "Fire", "Family B", 2, 50),
+                    new Creature("Parfure", "Fire", "Family C", 2, 50),
+                    new Creature("Chocosaur", "Grass", "Family D", 2, 50),
+                    new Creature("Golberry", "Grass", "Family E", 2, 50),
+                    new Creature("Kirliecake", "Grass", "Family F", 2, 50),
+                    new Creature("Tartortle", "Water", "Family G", 2, 50),
+                    new Creature("Chocolish", "Water", "Family H", 2, 50),
+                    new Creature("Dewice", "Water", "Family I", 2, 50),
                     new Creature("Super Nicdao", "Professor", "Family W", 2, 500)
             );
     
@@ -185,15 +214,15 @@ public class Area
     
         protected Creature encounterCreatureEL3() {
             List<Creature> possibleCreaturesEL3 = Arrays.asList(
-                    new Creature("Strawizard", "Fire", "Family A", 3, 70),
-                    new Creature("Candaros", "Fire", "Family B", 3, 70),
-                    new Creature("Parfelure", "Fire", "Family C", 3, 70),
-                    new Creature("Fudgansaur", "Grass", "Family D", 3, 70),
-                    new Creature("Croberry", "Grass", "Family E", 3, 70),
-                    new Creature("Velvevoir", "Grass", "Family F", 3, 70),
-                    new Creature("Piestoise", "Water", "Family G", 3, 70),
-                    new Creature("Icesundae", "Water", "Family H", 3, 70),
-                    new Creature("Samurcone", "Water", "Family I", 3, 70),
+                    new Creature("Strawizard", "Fire", "Family A", 3, 50),
+                    new Creature("Candaros", "Fire", "Family B", 3, 50),
+                    new Creature("Parfelure", "Fire", "Family C", 3, 50),
+                    new Creature("Fudgansaur", "Grass", "Family D", 3, 50),
+                    new Creature("Croberry", "Grass", "Family E", 3, 50),
+                    new Creature("Velvevoir", "Grass", "Family F", 3, 50),
+                    new Creature("Piestoise", "Water", "Family G", 3, 50),
+                    new Creature("Icesundae", "Water", "Family H", 3, 50),
+                    new Creature("Samurcone", "Water", "Family I", 3, 50),
                     new Creature("Ultimate Nicdao", "Professor", "Family W", 3, 5000)
             );
     
