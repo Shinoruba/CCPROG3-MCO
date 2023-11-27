@@ -1,5 +1,8 @@
 /**
- *  Creature class represents the creatures in the game ( obviously ) and stores their own attributes
+ *  Creature class represents the creatures in the game ( obviously ) and stores their own attributes.
+ * 
+ *  Model-View-Controller (MVC) pattern: MODEL = Represents the data and attributes of a creature in the game.
+ * 
  * 
  *  @author Shinoruba
  *  @author JSTP8330
