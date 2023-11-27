@@ -5,6 +5,12 @@ import java.util.Scanner;
 /**
  * The `MainGame` class controls the flow of the game, including the menu, user inputs, and transitions between exploration and battle.
  * 
+ * Model-View-Controller (MVC) pattern:
+ * VIEW       = Responsible for displaying information to the user, including menus and game states.
+ * CONTROLLER = Acts as a controller by handling user choices and directing the flow of the game.
+ * 
+ *  yikes... awkward :p
+ * 
  * @author Shinoruba
  * @author JSTP8330
  * @version 2.3
@@ -274,6 +280,7 @@ private void setCurrentArea(int areaLevel)
 
             /**
              * Handles the evolution of a creature. Not yet implemented.
+             * IMPORTANT: You cannot evolve your current active creature.
              */
             private void evolveCreature() // 3. Evolve the Creature
             {
@@ -437,7 +444,7 @@ private void setCurrentArea(int areaLevel)
      *
      * @return The validated user's choice.
      */
-    private int getUserMenuChoice()
+    protected int getUserMenuChoice()
     {
         int choice;
         while(true){
@@ -476,7 +483,7 @@ private void setCurrentArea(int areaLevel)
      *
      * @param choice The user's selected menu choice.
      */
-    private void handleUserChoice(int choice)
+    protected void handleUserChoice(int choice)
     {
         switch(choice)
         {
