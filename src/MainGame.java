@@ -220,7 +220,7 @@ private void setCurrentArea(int areaLevel) {
             /**
              * Allows the player to explore the current area, potentially encountering creatures ( there is an easter egg creature ).
              */
-            private void exploreArea() // 2. Explore Area
+            protected void exploreArea() // 2. Explore Area
             {
                 System.out.println("Exploring the area...\n");
         
@@ -293,7 +293,7 @@ private void setCurrentArea(int areaLevel) {
              * Handles the evolution of a creature. Not yet implemented.
              * IMPORTANT: You cannot evolve your current active creature.
              */
-            private void evolveCreature() // 3. Evolve the Creature
+            protected void evolveCreature() // 3. Evolve the Creature
             {
                 viewInventory();
 
@@ -350,7 +350,7 @@ private void setCurrentArea(int areaLevel) {
             RIGHT
     }
 
-    private Direction getPlayerMoveDirection()
+    protected Direction getPlayerMoveDirection()
     {
         while(true)
         {
@@ -413,7 +413,7 @@ private void setCurrentArea(int areaLevel) {
      *
      * @param moveDirection The direction in which the player wants to move.
      */
-    private void updatePlayerPosition(Direction moveDirection) // Used in exploreArea() method
+    protected void updatePlayerPosition(Direction moveDirection) // Used in exploreArea() method
     {
         int currentX = currentArea.getCurrentX();
         int currentY = currentArea.getCurrentY();
