@@ -93,6 +93,25 @@ public class Area
                 return tiles;
             }
 
+                /**
+                 * Retrieves the number of rows in the area ( used in GUI ).
+                 *
+                 * @return The number of rows.
+                 */
+                public int getRows() {
+                    return tiles.length;
+                }
+
+                /**
+                 * Retrieves the number of columns in the area ( used in GUI ).
+                 *
+                 * @return The number of columns.
+                 */
+                public int getCols() {
+                    // Assuming all rows have the same number of columns
+                    return tiles.length > 0 ? tiles[0].length : 0;
+                }
+
 // =================================================================   
             /**
              * Displays the current area layout, marking the player's position with "P".
@@ -119,32 +138,6 @@ public class Area
                 // Inside displayArea()
             System.out.println("Player's position: (" + currentX + ", " + currentY + ")");
             }
-            
-             /**
-             * Displays the current area layout, marking the player's position with "P".
-             * TO BE USED IN GUI PART !!!
-             * @return A string representation of the current area.
-             */
-            public String displayAreaToString() {
-                StringBuilder areaString = new StringBuilder();
-
-                for (int i = 0; i < tiles.length; i++) {
-                    for (int j = 0; j < tiles[i].length; j++) {
-                        if (i == currentX && j == currentY) {
-                            areaString.append("P "); // Player's position
-                        } else {
-                            areaString.append(". "); // Empty tile
-                        }
-                    }
-                    areaString.append("\n");
-                }
-
-                areaString.append("Player's position: (").append(currentX).append(", ").append(currentY).append(")");
-
-                return areaString.toString();
-            }
-
-
 
  
         /**
