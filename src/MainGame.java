@@ -13,7 +13,7 @@ import java.util.Scanner;
  * 
  * @author Shinoruba
  * @author JSTP8330
- * @version 2.4
+ * @version 2.5
  */
 public class MainGame 
 {
@@ -71,7 +71,7 @@ private void setCurrentArea(int areaLevel) {
 }
 
 
- /**
+    /**
      * Starts the game.
      */
     public void startGame()
