@@ -1,8 +1,23 @@
 import javax.swing.*;
 import java.util.List;
 
+/**
+ * Panel representing the evolution screen in the Budget Pokemon Game.
+ * Allows the user to view available creatures and initiate the evolution process.
+ * 
+ * Model-View-Controller (MVC) pattern: VIEW
+ * 
+ * @author Shinoruba
+ * @author JSTP8330
+ * @version 1
+ */
 public class EvolutionScreenPanel extends JFrame 
 {
+    /**
+     * Constructs an EvolutionScreenPanel for the given inventory.
+     *
+     * @param inventory The inventory containing creatures eligible for evolution.
+     */
     public EvolutionScreenPanel(Inventory inventory) 
     {
         setTitle("Evolve Creatures");
