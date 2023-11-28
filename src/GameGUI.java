@@ -1,7 +1,7 @@
 import javax.swing.*;
 
-public class GameGUI extends JFrame {
-
+public class GameGUI extends JFrame 
+{
     private Inventory inventory;
     private Creature userCreature;
     private Area currentArea;
@@ -23,7 +23,8 @@ public class GameGUI extends JFrame {
 
 
 
-    private void selectStarterCreature() {
+    private void selectStarterCreature() 
+    {
         // 3 EL1 starter creatures, one from each element!
         Creature starterCreature1 = new Creature("Strawander", "Fire", "A", 1, 100);
         Creature starterCreature2 = new Creature("Squirpie", "Water", "G", 1, 100);
@@ -41,9 +42,9 @@ public class GameGUI extends JFrame {
                 options,
                 options[0]
         );
-
         Creature starterCreature;
-        switch (starterChoice) {
+        switch (starterChoice) 
+        {
             case 0:
                 starterCreature = starterCreature1;
                 break;
@@ -76,24 +77,29 @@ public class GameGUI extends JFrame {
 
 
 
-    private void createMainMenu() {
+    private void createMainMenu() 
+    {
         MainMenuPanel mainMenuPanel = new MainMenuPanel(this);
         add(mainMenuPanel);
     }
 
-    public void displayInventory() {
+    public void displayInventory() 
+    {
         InventoryPanel inventoryPanel = new InventoryPanel(inventory);
     }
 
-    public void exploreArea() {
+    public void exploreArea() 
+    {
         exploreAreaPanel = new ExploreAreaPanel(userCreature, inventory);
     }
 
-    public void displayEvolutionScreen() {
+    public void displayEvolutionScreen() 
+    {
         EvolutionScreenPanel evolutionScreenPanel = new EvolutionScreenPanel(inventory);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) 
+    {
         SwingUtilities.invokeLater(() -> {
             Inventory inventory = new Inventory();
             GameGUI gameGUI = new GameGUI(inventory);
