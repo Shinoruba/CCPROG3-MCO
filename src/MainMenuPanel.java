@@ -1,9 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class MainMenuPanel extends JPanel {
+public class MainMenuPanel extends JPanel 
+{
 
-    public MainMenuPanel(GameGUI gameGUI) {
+    public MainMenuPanel(GameGUI gameGUI) 
+    {
         setLayout(new GridLayout(4, 1));
 
         JButton inventoryButton = new JButton("View Inventory");
