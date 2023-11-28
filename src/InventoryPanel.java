@@ -1,7 +1,23 @@
 import javax.swing.*;
 
+/**
+ * Panel representing the inventory of creatures in the Budget Pokemon Game.
+ * It displays information about each creature in the inventory and allows
+ * the user to view and change the active creature.
+ * 
+ * Model-View-Controller (MVC) pattern: VIEW
+ * 
+ * @author Shinoruba
+ * @author JSTP8330
+ * @version 1.1
+ */
 public class InventoryPanel extends JFrame 
 {
+    /**
+     * Constructs an InventoryPanel to display the user's inventory.
+     *
+     * @param inventory The inventory containing the user's creatures.
+     */
     public InventoryPanel(Inventory inventory) 
     {
         setTitle("Inventory");
@@ -15,6 +31,7 @@ public class InventoryPanel extends JFrame
         JLabel inventoryLabel = new JLabel("Inventory:");
         inventoryPanel.add(inventoryLabel);
 
+        // Display information for each creature in the inventory, why for each loop? tried to be cool
         for (Creature creature : inventory.getAllCreatures()) 
         {
             JLabel creatureLabel = new JLabel(
@@ -39,6 +56,11 @@ public class InventoryPanel extends JFrame
         add(inventoryPanel);
         setVisible(true);
     }
+            /**
+             * Displays a dialog for selecting a new active creature from the inventory.
+             *
+             * @param inventory The inventory containing the user's creatures.
+             */
             private void showCreatureSelectionDialog(Inventory inventory) 
             {
             Object[] options = inventory.getAllCreatures().toArray();
@@ -52,7 +74,7 @@ public class InventoryPanel extends JFrame
                     inventory.getActiveCreature()
             );
 
-            if(selectedCreature != null) 
+            if(selectedCreature != null) // INCOMPLETE BTW
                 {
                 inventory.setActiveCreature(selectedCreature); // Set the selected creature as the active creature
                 // We need to update the active creature label or refresh the inventory panel
