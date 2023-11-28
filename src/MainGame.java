@@ -48,23 +48,28 @@ public class MainGame
  *
  * @param areaLevel The level or ID of the area.
  */
-private void setCurrentArea(int areaLevel) 
-{
-    switch (areaLevel) 
-    {
+private void setCurrentArea(int areaLevel) {
+    switch (areaLevel) {
         case 1:
-            currentArea = new Area1(5,1);
+            if (currentArea == null || !(currentArea instanceof Area1)) {
+                currentArea = new Area1(5, 1);
+            }
             break;
         case 2:
-            currentArea = new Area2(3,3);
+            if (currentArea == null || !(currentArea instanceof Area2)) {
+                currentArea = new Area2(3, 3);
+            }
             break;
         case 3:
-            currentArea = new Area3(4,4);
+            if (currentArea == null || !(currentArea instanceof Area3)) {
+                currentArea = new Area3(4, 4);
+            }
             break;
         default:
             throw new IllegalArgumentException("Invalid area level: " + areaLevel);
     }
 }
+
 
  /**
      * Starts the game.
@@ -231,16 +236,21 @@ private void setCurrentArea(int areaLevel)
                 // Set the current area based on the user's choice
                 switch (areaChoice) {
                     case 1:
-                        currentArea = new Area1(5,1);
+                        if (currentArea == null || !(currentArea instanceof Area1)) {
+                            currentArea = new Area1(5, 1);
+                        }
                         break;
                     case 2:
-                        currentArea = new Area2(3,3);
+                        if (currentArea == null || !(currentArea instanceof Area2)) {
+                            currentArea = new Area2(3, 3);
+                        }
                         break;
                     case 3:
-                        currentArea = new Area3(4,4);
+                        if (currentArea == null || !(currentArea instanceof Area3)) {
+                            currentArea = new Area3(4, 4);
+                        }
                         break;
                 }
-                
         
                 // Display the current area screen with the player's position marked.
                 currentArea.displayArea();
@@ -248,31 +258,33 @@ private void setCurrentArea(int areaLevel)
                 // Allow the player to move within the area.
                 Direction moveDirection = getPlayerMoveDirection();
                 encounteredEnemy = null;
-        
-                if (encounteredEnemy == null) {
+
+                // Check if the player should encounter a creature
+                if (currentArea.shouldEncounterCreature()) {
                     encounteredEnemy = currentArea.encounteredCreature();
                     encounteredEnemy.getHealth();
+                    System.out.println("You've encountered a creature!");
+
+                    Creature userCreature = currentInventory.getActiveCreature();
+                    BattlePhase battle = new BattlePhase(userCreature, encounteredEnemy, currentInventory);
+                    battle.startBattle(encounteredEnemy.getHealth()); // Use enemy's actual health
+
+                    if (userCreature.getHealth() <= 0) {
+                        System.out.println("Your creature was defeated!");
+                        currentInventory.removeCreature(userCreature);
+                        System.out.println("You've been returned to a safe location.");
+                    } else if (encounteredEnemy.getHealth() <= 0) {
+                        System.out.println("You defeated the enemy creature!");
+                        if (battle.tryCaptureCreature(encounteredEnemy)) {
+                            System.out.println("You've successfully captured " + encounteredEnemy.getName() + "!");
+                            currentInventory.addCreature(encounteredEnemy);
+                        } else
+                            System.out.println("Capture attempt failed.");
+                    }
+                } else {
+                    System.out.println("You explore the area but find no creatures.");
                 }
-        
-                System.out.println("You've encountered a creature!");
-        
-                Creature userCreature = currentInventory.getActiveCreature();
-                BattlePhase battle = new BattlePhase(userCreature, encounteredEnemy, currentInventory);
-                battle.startBattle(encounteredEnemy.getHealth()); // Use enemy's actual health
-        
-                if (userCreature.getHealth() <= 0) {
-                    System.out.println("Your creature was defeated!");
-                    currentInventory.removeCreature(userCreature);
-                    System.out.println("You've been returned to a safe location.");
-                } else if (encounteredEnemy.getHealth() <= 0) {
-                    System.out.println("You defeated the enemy creature!");
-                    if (battle.tryCaptureCreature(encounteredEnemy)) {
-                        System.out.println("You've successfully captured " + encounteredEnemy.getName() + "!");
-                        currentInventory.addCreature(encounteredEnemy);
-                    } else
-                        System.out.println("Capture attempt failed.");
-                }
-        
+
                 // Update the player's position based on the move direction.
                 updatePlayerPosition(moveDirection);
             }
@@ -406,32 +418,27 @@ private void setCurrentArea(int areaLevel)
         int currentX = currentArea.getCurrentX();
         int currentY = currentArea.getCurrentY();
 
-        switch(moveDirection)
-        {
+        switch (moveDirection) {
             case UP:
-                if(currentX > 0)
-                {
+                if (currentX > 0) {
                     currentArea.setCurrentX(currentX - 1);
                 }
                 break;
 
             case DOWN:
-                if(currentX < currentArea.getTiles().length - 1)
-                {
+                if (currentX < currentArea.getTiles().length - 1) {
                     currentArea.setCurrentX(currentX + 1);
                 }
                 break;
 
             case LEFT:
-                if(currentY > 0)
-                {
+                if (currentY > 0) {
                     currentArea.setCurrentY(currentY - 1);
                 }
                 break;
 
             case RIGHT:
-                if(currentY < currentArea.getTiles()[currentX].length - 1)
-                {
+                if (currentY < currentArea.getTiles()[0].length - 1) {
                     currentArea.setCurrentY(currentY + 1);
                 }
                 break;
