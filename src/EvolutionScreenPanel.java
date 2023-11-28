@@ -1,9 +1,10 @@
 import javax.swing.*;
 import java.util.List;
 
-public class EvolutionScreenPanel extends JFrame {
-
-    public EvolutionScreenPanel(Inventory inventory) {
+public class EvolutionScreenPanel extends JFrame 
+{
+    public EvolutionScreenPanel(Inventory inventory) 
+    {
         setTitle("Evolve Creatures");
         setSize(400, 400);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -22,7 +23,8 @@ public class EvolutionScreenPanel extends JFrame {
 
         List<Creature> creatureList = inventory.getAllCreatures();
 
-        for (int i = 0; i < creatureList.size(); i++) {
+        for (int i = 0; i < creatureList.size(); i++) 
+        {
             Creature creature = creatureList.get(i);
             evolutionTextArea.append("[" + (i + 1) + "] " + creature.toString() + "\n");
         }
@@ -31,13 +33,16 @@ public class EvolutionScreenPanel extends JFrame {
 
         JButton evolveButton = new JButton("Evolve Selected Creatures");
         evolveButton.addActionListener(e -> {
-            try {
+            try
+            {
                 int index1 = Integer.parseInt(JOptionPane.showInputDialog("Enter index of first creature:")) - 1;
                 int index2 = Integer.parseInt(JOptionPane.showInputDialog("Enter index of second creature:")) - 1;
 
                 inventory.evolveCreatures(index1, index2);
                 JOptionPane.showMessageDialog(null, "Evolution successful!");
-            } catch (IllegalArgumentException ex) {
+            } 
+            catch(IllegalArgumentException ex) 
+            {
                 JOptionPane.showMessageDialog(null, "Invalid input. Please enter a valid index.");
             }
             dispose();
