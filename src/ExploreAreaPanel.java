@@ -6,6 +6,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Panel representing the exploration of different areas in the Budget Pokemon Game.
+ * Allows the user to navigate through areas, encounter creatures, and trigger battles.
+ * 
+ * Model-View-Controller (MVC) pattern: VIEW
+ * 
+ * @author Shinoruba
+ * @author JSTP8330
+ * @version 1.5
+ */
 public class ExploreAreaPanel extends JFrame 
 {
     private static final int AREA_1_ROWS = 5;
@@ -18,10 +28,16 @@ public class ExploreAreaPanel extends JFrame
     private int currentRow;
     private int currentCol;
     private int currentArea;
-    private Creature userCreature;
+    private Creature userCreature, enemyCreature;
     private Inventory currentInventory;
     private Random random = new Random();
 
+    /**
+     * Constructs an ExploreAreaPanel for the given user creature and inventory.
+     *
+     * @param userCreature The user's active creature.
+     * @param currentInventory The current inventory of creatures.
+     */
     public ExploreAreaPanel(Creature userCreature, Inventory currentInventory) 
     {
         this.userCreature = userCreature;
@@ -38,6 +54,9 @@ public class ExploreAreaPanel extends JFrame
         createAreaSelectionPanel();
     }
 
+    /**
+     * Creates the area selection panel allowing the user to choose the exploration area.
+     */
     private void createAreaSelectionPanel() 
     {
         JPanel areaSelectionPanel = new JPanel();
@@ -82,6 +101,9 @@ public class ExploreAreaPanel extends JFrame
         setVisible(true);
     }
 
+    /**
+     * Creates the exploration panel based on the selected area.
+     */
     private void createExploreAreaPanel() 
     {
         JPanel exploreAreaPanel = new JPanel(new GridLayout(getAreaRows(), getAreaCols()));
@@ -127,6 +149,9 @@ public class ExploreAreaPanel extends JFrame
         setVisible(true);
     }
 
+    /**
+     * ActionListener for handling movement actions in the exploration panel.
+     */
     private class MoveActionListener implements ActionListener 
     {
         private Direction direction;
@@ -137,9 +162,9 @@ public class ExploreAreaPanel extends JFrame
         }
 
         @Override
-        public void actionPerformed(ActionEvent e) {
-            // Update current position based on the selected direction
-            switch (direction) 
+        public void actionPerformed(ActionEvent e) 
+        {
+            switch(direction) // Update current position based on the selected direction
             {
                 case UP:
                     if (currentRow > 0) currentRow--;
@@ -153,21 +178,21 @@ public class ExploreAreaPanel extends JFrame
                 case RIGHT:
                     if (currentCol < getAreaCols() - 1) currentCol++;
                     break;
-            }
-
-            // Check if the user encounters a creature
-            if (random.nextDouble() < 0.4) 
+            }           
+            if(random.nextDouble() < 0.4) // Check if the user encounters a creature
             {
-                Creature encounteredCreature = generateEncounteredCreature();
-                BattlePhase battlePhase = new BattlePhase(userCreature, encounteredCreature, currentInventory);
+                Creature enemyCreature = encounteredCreature();
+                BattlePhase battlePhase = new BattlePhase(userCreature, enemyCreature, currentInventory);
                 battlePhase.startBattle(100);
-            }
-
-            // Update the area screen
-            updateAreaScreen((JPanel) getContentPane().getComponent(0));
+            }updateAreaScreen((JPanel) getContentPane().getComponent(0)); // Update the area screen
         }
     }
 
+    /**
+     * Updates the area screen with buttons representing the current state of the area.
+     *
+     * @param exploreAreaPanel The panel containing the area buttons.
+     */
     private void updateAreaScreen(JPanel exploreAreaPanel) 
     {
         exploreAreaPanel.removeAll(); // Clear previous components
@@ -179,43 +204,43 @@ public class ExploreAreaPanel extends JFrame
                 JButton tileButton = new JButton("(" + row + ", " + col + ")");
                 exploreAreaPanel.add(tileButton);
 
-                // Add a marker for the current position
-                if (row == currentRow && col == currentCol)
-                 {
+                
+                if(row == currentRow && col == currentCol)// Add a marker for the current position
+                {
                     tileButton.setText("X");
                     tileButton.setFont(new Font("Arial", Font.BOLD, 12));
                 }
 
-                // Add a creature encounter with a 40% chance
-                if (random.nextDouble() < 0.4) 
+                if(random.nextDouble() < 0.4) // Add a creature encounter with a 40% chance
                 {
                     tileButton.setForeground(Color.RED);
                     tileButton.addActionListener(new EncounterActionListener());
                 }
             }
         }
-
         validate();
         repaint();
     }
 
+    /**
+     * ActionListener for handling creature encounters in the exploration panel.
+     */
     private class EncounterActionListener implements ActionListener 
     {
         @Override
         public void actionPerformed(ActionEvent e) 
         {
-            Creature encounteredCreature = generateEncounteredCreature();
-            BattlePhase battlePhase = new BattlePhase(userCreature, encounteredCreature, currentInventory);
+            Creature enemyCreature = encounteredCreature();
+            BattlePhase battlePhase = new BattlePhase(userCreature, enemyCreature, currentInventory);
             battlePhase.startBattle(100);
         }
     }
 
-    private Creature generateEncounteredCreature() 
-    {
-        // Replace this method with your new encounteredCreature() method
-        return encounteredCreature();
-    }
-
+    /**
+     * Generates a random creature encountered during exploration.
+     *
+     * @return The encountered creature.
+     */
     private Creature encounteredCreature()
     {
         int el = random.nextInt(3) + 1;
@@ -232,6 +257,11 @@ public class ExploreAreaPanel extends JFrame
         }
     }
 
+    /**
+     * Generates a random EL1 creature encountered during exploration.
+     *
+     * @return The encountered creature.
+     */
     protected Creature encounterCreatureEL1() 
     {
         List<Creature> possibleCreaturesEL1 = Arrays.asList(
@@ -250,6 +280,11 @@ public class ExploreAreaPanel extends JFrame
         return getRandomCreature(possibleCreaturesEL1);
     }
 
+    /**
+     * Generates a random EL2 creature encountered during exploration.
+     *
+     * @return The encountered creature.
+     */
     protected Creature encounterCreatureEL2() 
     {
         List<Creature> possibleCreaturesEL2 = Arrays.asList(
@@ -268,6 +303,11 @@ public class ExploreAreaPanel extends JFrame
         return getRandomCreature(possibleCreaturesEL2);
     }
 
+    /**
+     * Generates a random EL3 creature encountered during exploration.
+     *
+     * @return The encountered creature.
+     */
     protected Creature encounterCreatureEL3() 
     {
         List<Creature> possibleCreaturesEL3 = Arrays.asList(
@@ -286,12 +326,23 @@ public class ExploreAreaPanel extends JFrame
         return getRandomCreature(possibleCreaturesEL3);
     }
 
+    /**
+     * Retrieves a random creature from the given list.
+     *
+     * @param creatures The list of creatures to choose from.
+     * @return The randomly selected creature.
+     */
     protected Creature getRandomCreature(List<Creature> creatures) 
     {
         int randomIndex = random.nextInt(creatures.size());
         return creatures.get(randomIndex);
     }
 
+    /**
+     * Retrieves the number of rows for the current exploration area.
+     *
+     * @return The number of rows.
+     */
     private int getAreaRows() 
     {
         switch(currentArea) 
@@ -307,6 +358,11 @@ public class ExploreAreaPanel extends JFrame
         }
     }
 
+    /**
+     * Retrieves the number of columns for the current exploration area.
+     *
+     * @return The number of columns.
+     */
     private int getAreaCols() 
     {
         switch(currentArea) 
@@ -322,6 +378,9 @@ public class ExploreAreaPanel extends JFrame
         }
     }
 
+    /**
+     * Enumeration representing the directions for movement.
+     */
     private enum Direction 
     {
         UP, 
