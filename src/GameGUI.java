@@ -23,6 +23,7 @@ public class GameGUI extends JFrame
      *
      * @param inventory The inventory to be used in the gui game file, which is this one.
      */
+
     public GameGUI(Inventory inventory) {
         this.inventory = inventory;
         this.currentArea = new Area(5, 5);
@@ -50,10 +51,11 @@ public class GameGUI extends JFrame
         Creature starterCreature3 = new Creature("Brownisaur", "Grass", "D", 1, 100);
 
         // Display a list of EL1 creatures for the user to choose from
+
         Object[] options = {starterCreature1.getName(), starterCreature2.getName(), starterCreature3.getName()};
         int starterChoice = JOptionPane.showOptionDialog(
                 this,
-                "Select a starter creature (EL1):",
+                "Select a Starter Creature (EL1):",
                 "Starter Creature Selection",
                 JOptionPane.DEFAULT_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
@@ -61,7 +63,7 @@ public class GameGUI extends JFrame
                 options,
                 options[0]
         );
-        Creature starterCreature;
+        Creature starterCreature = null;
         switch (starterChoice) 
         {
             case 0:
@@ -74,7 +76,8 @@ public class GameGUI extends JFrame
                 starterCreature = starterCreature3;
                 break;
             default:
-                throw new IllegalStateException("Unexpected value: " + starterChoice);
+                // Exit program when user closes the dialog box
+                System.exit(0);
         }
 
         // Add the starter creature to the inventory and set it as active
@@ -90,15 +93,10 @@ public class GameGUI extends JFrame
         );
     }
 
-
-
-
-
-
     /**
      * Creates the main menu panel and adds it to the game window.
      */
-    private void createMainMenu() 
+    private void createMainMenu()
     {
         MainMenuPanel mainMenuPanel = new MainMenuPanel(this);
         add(mainMenuPanel);
