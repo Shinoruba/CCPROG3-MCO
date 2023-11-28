@@ -100,14 +100,14 @@ public class GameGUI extends JFrame
     {
         MainMenuPanel mainMenuPanel = new MainMenuPanel(this);
         add(mainMenuPanel);
-    }
+    } 
 
     /**
      * Displays the user's inventory using the InventoryPanel.
      */
     public void displayInventory() 
     {
-        InventoryPanel inventoryPanel = new InventoryPanel(inventory);
+        InventoryPanel inventoryPanel = new InventoryPanel(inventory, this);
     }
 
     /**
