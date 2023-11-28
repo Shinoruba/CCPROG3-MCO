@@ -3,6 +3,7 @@ import javax.swing.*;
 public class GameGUI extends JFrame {
 
     private Inventory inventory;
+    private Creature userCreature;
     private Area currentArea;
     private ExploreAreaPanel exploreAreaPanel;
 
@@ -59,6 +60,7 @@ public class GameGUI extends JFrame {
         // Add the starter creature to the inventory and set it as active
         inventory.addCreature(starterCreature);
         inventory.setActiveCreature(starterCreature);
+        userCreature = starterCreature;
 
         JOptionPane.showMessageDialog(
                 this,
@@ -84,7 +86,7 @@ public class GameGUI extends JFrame {
     }
 
     public void exploreArea() {
-        ExploreAreaPanel exploreAreaPanel = new ExploreAreaPanel(currentArea);
+        exploreAreaPanel = new ExploreAreaPanel(userCreature, inventory);
     }
 
     public void displayEvolutionScreen() {
