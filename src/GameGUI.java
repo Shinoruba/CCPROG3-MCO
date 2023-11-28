@@ -1,5 +1,16 @@
 import javax.swing.*;
 
+/**
+ * The main class representing the graphical user interface for the Budget Pokemon Game.
+ * It extends JFrame to create the game's window.
+ * 
+ * Model-View-Controller (MVC) pattern: CONTROLLER
+ * 
+ * 
+ * @author Shinoruba
+ * @author JSTP8330
+ * @version 1.2
+ */
 public class GameGUI extends JFrame 
 {
     private Inventory inventory;
@@ -7,6 +18,11 @@ public class GameGUI extends JFrame
     private Area currentArea;
     private ExploreAreaPanel exploreAreaPanel;
 
+     /**
+     * Constructs a GameGUI with the given inventory.
+     *
+     * @param inventory The inventory to be used in the gui game file, which is this one.
+     */
     public GameGUI(Inventory inventory) {
         this.inventory = inventory;
         this.currentArea = new Area(5, 5);
@@ -22,7 +38,10 @@ public class GameGUI extends JFrame
     }
 
 
-
+    /**
+     * Selects a starter creature for the user from three available options.
+     * Displays a dialog box for the user to choose an EL1 creature.
+     */
     private void selectStarterCreature() 
     {
         // 3 EL1 starter creatures, one from each element!
@@ -76,28 +95,44 @@ public class GameGUI extends JFrame
 
 
 
-
+    /**
+     * Creates the main menu panel and adds it to the game window.
+     */
     private void createMainMenu() 
     {
         MainMenuPanel mainMenuPanel = new MainMenuPanel(this);
         add(mainMenuPanel);
     }
 
+    /**
+     * Displays the user's inventory using the InventoryPanel.
+     */
     public void displayInventory() 
     {
         InventoryPanel inventoryPanel = new InventoryPanel(inventory);
     }
 
+    /**
+     * Initializes the ExploreAreaPanel for exploring 3 different game areas.
+     */
     public void exploreArea() 
     {
         exploreAreaPanel = new ExploreAreaPanel(userCreature, inventory);
     }
 
+    /**
+     * Displays the evolution screen using the EvolutionScreenPanel.
+     */
     public void displayEvolutionScreen() 
     {
         EvolutionScreenPanel evolutionScreenPanel = new EvolutionScreenPanel(inventory);
     }
 
+    /**
+     * The main method to launch the game.
+     *
+     * @param args Command-line arguments.
+     */
     public static void main(String[] args) 
     {
         SwingUtilities.invokeLater(() -> {
