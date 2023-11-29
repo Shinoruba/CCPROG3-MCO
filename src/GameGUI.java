@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * The main class representing the graphical user interface for the Budget Pokemon Game.
@@ -34,7 +35,7 @@ public class GameGUI extends JFrame
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-
+        
         createMainMenu();
     }
 
@@ -103,11 +104,11 @@ public class GameGUI extends JFrame
     } 
 
     /**
-     * Displays the user's inventory using the InventoryPanel.
+     * Displays the user's inventory using the InventoryFrame.
      */
     public void displayInventory() 
     {
-        InventoryPanel inventoryPanel = new InventoryPanel(inventory, this);
+        InventoryFrame inventoryFrame = new InventoryFrame(inventory);
     }
 
     /**

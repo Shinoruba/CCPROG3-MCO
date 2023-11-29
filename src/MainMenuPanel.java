@@ -12,32 +12,90 @@ import java.awt.*;
  * @author JSTP8330
  * @version 1.1
  */
-public class MainMenuPanel extends JPanel 
-{
+public class MainMenuPanel extends JPanel {
 
-    /**
+    private GameGUI gameGUI;
+
+     /**
      * Constructs a MainMenuPanel with buttons for various game actions.
      *
      * @param gameGUI The GameGUI instance to which the buttons are linked.
      */
-    public MainMenuPanel(GameGUI gameGUI) 
-    {
+    
+    public MainMenuPanel(GameGUI gameGUI) {
+        this.gameGUI = gameGUI;
+        setSize(400, 300);
         setLayout(new GridLayout(4, 1));
-        JButton inventoryButton = new JButton("View Inventory"); // Button for viewing the user's inventory
-        JButton areaButton = new JButton("Explore Area"); // Button for exploring different game areas
-        JButton evolveButton = new JButton("Evolve Creatures"); // Button for evolving creatures
-        JButton exitButton = new JButton("Exit"); // Button for exiting the game
+        initComponents();
+    }
+    
+     /**
+     * This method is called from within the constructor to initialize the form.
+     */
 
-        // Action listeners for each button
-        inventoryButton.addActionListener(e -> gameGUI.displayInventory());
-        areaButton.addActionListener(e -> gameGUI.exploreArea());
-        evolveButton.addActionListener(e -> gameGUI.displayEvolutionScreen());
-        exitButton.addActionListener(e -> System.exit(0));
+    private void initComponents() {
+        // Initialize and configure components
+        JButton inventoryButton = createInventoryButton();
+        JButton exploreButton = createExploreButton();
+        JButton evolutionButton = createEvolutionButton();
+        JButton exitButton = createExitButton();
 
-        // Add buttons to the panel
+        // Add components to the panel
         add(inventoryButton);
-        add(areaButton);
-        add(evolveButton);
+        add(exploreButton);
+        add(evolutionButton);
         add(exitButton);
+        
+        setVisible(true);
+    }
+
+     /**
+     * This method creates the button necessary for accessing the entirety 
+     * of the creature inventory.
+     *
+     * @return inventoryButton 
+     */
+    
+    private JButton createInventoryButton() {
+        JButton inventoryButton = new JButton("Inventory");
+        inventoryButton.addActionListener(e -> gameGUI.displayInventory());
+        return inventoryButton;
+    }
+    
+     /**
+     * This method creates the button necessary for exploration.
+     *
+     * @return exploreButton 
+     */
+    
+    private JButton createExploreButton() {
+        JButton exploreButton = new JButton("Explore");
+        exploreButton.addActionListener(e -> gameGUI.exploreArea());
+        return exploreButton;
+    }
+    
+     /**
+     * This method creates the button necessary for the creatures' evolution.
+     *
+     * @return exploreButton 
+     */
+
+    private JButton createEvolutionButton() {
+        JButton evolutionButton = new JButton("Evolution");
+        evolutionButton.addActionListener(e -> gameGUI.displayEvolutionScreen());
+        return evolutionButton;
+    }
+    
+     /**
+     * This method creates the button for exiting the program.
+     *
+     * @return exitButton 
+     */
+
+    private JButton createExitButton() {
+        JButton exitButton = new JButton("Exit");
+        exitButton.addActionListener(e -> System.exit(0));
+        return exitButton;
     }
 }
+
