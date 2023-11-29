@@ -17,7 +17,7 @@ public class GameGUI extends JFrame
     private Inventory inventory;
     private Creature userCreature;
     private Area currentArea;
-    private ExploreAreaPanel exploreAreaPanel;
+    private ExploreAreaFrame exploreAreaFrame;
 
      /**
      * Constructs a GameGUI with the given inventory.
@@ -116,7 +116,7 @@ public class GameGUI extends JFrame
      */
     public void exploreArea() 
     {
-        exploreAreaPanel = new ExploreAreaPanel(userCreature, inventory);
+        exploreAreaFrame = new ExploreAreaFrame(userCreature, inventory);
     }
 
     /**
