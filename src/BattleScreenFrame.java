@@ -1,10 +1,18 @@
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+
 /**
+ * Frame representing the battle screen. Allows the user to interact with the
+ * battle phase of the game. The user can choose to attack, swap creatures,
+ * catch creatures and many more that is in the battle phase.
  *
- * @author Admin
+ * Model-View-Controller (MVC) pattern: VIEW
+ *
+ * @author Shinoruba
+ * @author JSTP8330
+ * @version 1.0
  */
+
 public class BattleScreenFrame extends javax.swing.JFrame {
     private BattlePhase battlePhase;
     private Creature    userCreature, enemyCreature;
@@ -14,12 +22,9 @@ public class BattleScreenFrame extends javax.swing.JFrame {
      * Creates new form BattleScreenFrame
      */
     public BattleScreenFrame(BattlePhase battlePhase) {
-        
         initComponents();
         this.battlePhase = battlePhase;
     }
-
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -58,7 +63,7 @@ public class BattleScreenFrame extends javax.swing.JFrame {
 
         activeCreaturePan.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        activeCreatureLabel.setFont(new java.awt.Font("Segoe Print", 0, 14)); // NOI18N
+        activeCreatureLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         activeCreatureLabel.setText("Active Creature:");
 
         userImage.setText("jLabel3");
@@ -83,14 +88,14 @@ public class BattleScreenFrame extends javax.swing.JFrame {
                 .addComponent(activeCreatureLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(userImage, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 32, Short.MAX_VALUE))
+                .addGap(0, 46, Short.MAX_VALUE))
         );
 
         userImage.getAccessibleContext().setAccessibleName("activeCreatureImagePlaceholder");
 
         enemyCreaturePan.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        enemyCreatureLabel.setFont(new java.awt.Font("Segoe Print", 0, 14)); // NOI18N
+        enemyCreatureLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         enemyCreatureLabel.setText("Enemy Creature:");
 
         enemyImage.setText("jLabel4");
@@ -119,10 +124,10 @@ public class BattleScreenFrame extends javax.swing.JFrame {
 
         enemyImage.getAccessibleContext().setAccessibleName("enemyCreatureImagePlaceholder");
 
-        activeCreatureLabel1.setFont(new java.awt.Font("Segoe Print", 0, 14)); // NOI18N
+        activeCreatureLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         activeCreatureLabel1.setText("Name:");
 
-        activeCreatureLabel2.setFont(new java.awt.Font("Segoe Print", 0, 14)); // NOI18N
+        activeCreatureLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         activeCreatureLabel2.setText("EL:");
 
         userCreatureName.setText("editTextActiveCreatureName");
@@ -163,10 +168,10 @@ public class BattleScreenFrame extends javax.swing.JFrame {
                 .addGap(50, 50, 50))
         );
 
-        activeCreatureLabel3.setFont(new java.awt.Font("Segoe Print", 0, 14)); // NOI18N
+        activeCreatureLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         activeCreatureLabel3.setText("Name:");
 
-        activeCreatureLabel4.setFont(new java.awt.Font("Segoe Print", 0, 14)); // NOI18N
+        activeCreatureLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         activeCreatureLabel4.setText("EL:");
 
         enemyCreatureName.setText("editTextEnemyCreatureName");
@@ -190,7 +195,7 @@ public class BattleScreenFrame extends javax.swing.JFrame {
                     .addGroup(enemyCreatureNameELPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(enemyCreatureHP, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addComponent(enemyCreatureEL, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         enemyCreatureNameELPanLayout.setVerticalGroup(
             enemyCreatureNameELPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -283,7 +288,7 @@ public class BattleScreenFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 140, Short.MAX_VALUE)
                         .addComponent(enemyCreaturePan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(fourButtonsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -314,19 +319,16 @@ public class BattleScreenFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
-        // TODO add your handling code here:
         setVisible(false);
     }//GEN-LAST:event_exitButtonActionPerformed
 
     private void catchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_catchButtonActionPerformed
-        // TODO add your handling code here:
         // Attempt to capture the enemy creature
         boolean captureSuccess = battlePhase.tryCaptureCreature(enemyCreature);
 
         // Update UI or perform other actions based on the result
         if (captureSuccess) {
-            // Creature captured successfully, update UI or take necessary actions
-            updateBattleStatus(); // Call a method to update the battle status UI
+            updateBattleStatus();
         } else {
             // Capture attempt failed, update UI or take necessary actions
             displayMessage("Capture attempt failed.");
@@ -334,8 +336,7 @@ public class BattleScreenFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_catchButtonActionPerformed
 
     private void swapButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_swapButtonActionPerformed
-        // TODO add your handling code here:
-        if(currentInventory.getSize() > 1) 
+        if(currentInventory.getSize() > 1)
                     {
                         battlePhase.displayInventory(); // Display the user's inventory
                         int swapChoice = InputHandler.getUserSwapChoice(currentInventory);
@@ -359,7 +360,6 @@ public class BattleScreenFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_swapButtonActionPerformed
 
     private void attackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_attackButtonActionPerformed
-        // TODO add your handling code here:
          // Perform an attack
         int userDamage = battlePhase.calculateUserDamage(userCreature, enemyCreature);
         enemyCreature.setHealth(enemyCreature.getHealth() - userDamage);
@@ -370,8 +370,7 @@ public class BattleScreenFrame extends javax.swing.JFrame {
         // Check if the enemy is defeated
         if (enemyCreature.getHealth() <= 0) {
             displayMessage(enemyCreature.getName() + " is defeated!");
-            // Handle other actions after defeating the enemy
-            // ...
+            setVisible(false);
         } else {
             // Enemy retaliates
             int enemyDamage = battlePhase.calculateEnemyDamage();
@@ -383,20 +382,19 @@ public class BattleScreenFrame extends javax.swing.JFrame {
             // Check if the user is defeated
             if (userCreature.getHealth() <= 0) {
                 displayMessage("You are defeated!");
-                // Handle other actions after the user is defeated
-                // ...
+                currentInventory.removeCreature(userCreature);
+                displayMessage("You've been returned to a safe location.");
+                setVisible(false);
             }
         }
     }//GEN-LAST:event_attackButtonActionPerformed
 
-    
-    
-    
-        // Helper method to update the battle status UI
+    // Helper method to update the battle status UI
     private void updateBattleStatus() {
-        // Update relevant UI components based on the current battle state
-        // (e.g., display health, messages, etc.)
-        // Update user creature's health
+
+            // Update relevant UI components based on the current battle state
+            // (e.g., display health, messages, etc.)
+            // Update user creature's health
             userCreatureHP.setText("Health: " + userCreature.getHealth());
 
             // Update enemy creature's health
@@ -406,9 +404,9 @@ public class BattleScreenFrame extends javax.swing.JFrame {
             if (userCreature.getHealth() <= 0) {
                 // User is defeated, update UI accordingly
                 displayMessage("You are defeated!");
-                // Handle other actions after the user is defeated
-                // ...
-
+                currentInventory.removeCreature(userCreature);
+                System.out.println("You've been returned to a safe location.");
+                
             } else if (enemyCreature.getHealth() <= 0) {
                 // Enemy is defeated, update UI accordingly
                 displayMessage(enemyCreature.getName() + " is defeated!");

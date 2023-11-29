@@ -153,7 +153,7 @@ public void setCurrentInventory(Inventory currentInventory)
     this.currentInventory = currentInventory;
 }
 
-    public void displayInventory() 
+    void displayInventory() 
     {
         List<Creature> allCreatures = currentInventory.getAllCreatures();
         System.out.println("Your inventory:");
@@ -182,7 +182,7 @@ public void setCurrentInventory(Inventory currentInventory)
      * @param defender The creature that is defending. ( Enemy )
      * @return The calculated damage value.
      */
-    public int calculateUserDamage(Creature attacker, Creature defender) 
+    int calculateUserDamage(Creature attacker, Creature defender) 
     {
         int damage = random.nextInt(MAX_DAMAGE - MIN_DAMAGE + 1) + MIN_DAMAGE;
             if(isTypeStrongAgainst(attacker.getType(), defender.getType())) 
@@ -201,7 +201,7 @@ public void setCurrentInventory(Inventory currentInventory)
      * @param defender The creature that is defending. ( Player )
      * @return The calculated damage value.
      */
-    public int calculateEnemyDamage()
+    int calculateEnemyDamage()
     {
         return random.nextInt(MAX_DAMAGE - MIN_DAMAGE + 1) + MIN_DAMAGE;
     }
