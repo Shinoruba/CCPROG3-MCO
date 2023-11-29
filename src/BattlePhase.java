@@ -153,18 +153,26 @@ public void setCurrentInventory(Inventory currentInventory)
     this.currentInventory = currentInventory;
 }
 
-    void displayInventory() 
+    /**
+     * Displays the inventory of creatures, including their names and evolution levels.
+     * The information is printed to the console.
+     */
+    public void displayInventory() 
     {
-        List<Creature> allCreatures = currentInventory.getAllCreatures();
-        System.out.println("Your inventory:");
+        List<Creature> allCreatures = currentInventory.getAllCreatures();  // Retrieve all creatures from the current inventory
+        System.out.println("Your inventory:"); // Display the header for the inventory
         
-        for(int i = 0; i < allCreatures.size(); i++) 
+        for(int i = 0; i < allCreatures.size(); i++)  // Iterate through each creature in the inventory
         {
             Creature creature = allCreatures.get(i);
-            System.out.println((i + 1) + ": " + creature.getName() + " (EL" + creature.getEvolutionLevel() + ")");
+            System.out.println((i + 1) + ": " + creature.getName() + " (EL" + creature.getEvolutionLevel() + ")"); // Display information for each creature
         }
     }
 
+    /**
+     * Displays the current battle status, including the health of the user's creature and the enemy creature.
+     * Prints information such as names and health points for both creatures.
+     */
     private void displayBattleStatus() 
     {
         System.out.println("\n---");
@@ -182,7 +190,7 @@ public void setCurrentInventory(Inventory currentInventory)
      * @param defender The creature that is defending. ( Enemy )
      * @return The calculated damage value.
      */
-    int calculateUserDamage(Creature attacker, Creature defender) 
+    public int calculateUserDamage(Creature attacker, Creature defender) 
     {
         int damage = random.nextInt(MAX_DAMAGE - MIN_DAMAGE + 1) + MIN_DAMAGE;
             if(isTypeStrongAgainst(attacker.getType(), defender.getType())) 
@@ -197,11 +205,9 @@ public void setCurrentInventory(Inventory currentInventory)
      * Randomly generates damage between 1 and 10.
      * ( This is for the enemy creature )
      *
-     * @param attacker The creature that is attacking. ( Enemy )
-     * @param defender The creature that is defending. ( Player )
      * @return The calculated damage value.
      */
-    int calculateEnemyDamage()
+    public int calculateEnemyDamage()
     {
         return random.nextInt(MAX_DAMAGE - MIN_DAMAGE + 1) + MIN_DAMAGE;
     }
