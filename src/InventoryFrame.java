@@ -30,6 +30,7 @@ public class InventoryFrame extends javax.swing.JFrame {
     
     /**
      * Creates new form InventoryPanel
+     * @param inventory The inventory containing the user's creatures.
      */
     public InventoryFrame(Inventory inventory) {
         initComponents();
@@ -130,6 +131,15 @@ public class InventoryFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+	/** 
+	 * This method finds the creature by its name by looping all
+	 * the array elements of creatures in the inventory.
+	 *
+	 * @param inventory The inventory containing the user's creatures.
+	 * @param creatureName The name of the creature to be found.
+	 *
+	 */
+
     private Creature getCreatureByName(Inventory inventory, String creatureName) {
     for (Creature creature : inventory.getAllCreatures()) {
         if (creature.getName().equals(creatureName)) {
@@ -148,38 +158,44 @@ public class InventoryFrame extends javax.swing.JFrame {
      * 
      */
     
-private void refreshActiveCreatureImage(Inventory inventory) {
-    Creature activeCreature = inventory.getActiveCreature();
+	private void refreshActiveCreatureImage(Inventory inventory) {
+		Creature activeCreature = inventory.getActiveCreature();
 
-    // Check if an active creature exists
-    if (activeCreature != null) {
-        // Get the creature name and create the corresponding icon file name
-        String creatureName = activeCreature.getName();
-        
-        // Load the icon using ClassLoader
-        ImageIcon icon = createImageIcon("/icons/" + creatureName.toLowerCase() + ".png");
+		// Check if an active creature exists
+		if (activeCreature != null) {
+			// Get the creature name and create the corresponding icon file name
+			String creatureName = activeCreature.getName();
+			
+			// Load the icon using ClassLoader
+			ImageIcon icon = createImageIcon("/icons/" + creatureName.toLowerCase() + ".png");
 
-        // Set the loaded icon to the JLabel
-        activeCreatureImage.setIcon(icon);
-    } else {
-        // If no active creature, set the JLabel to null or a default image
-        activeCreatureImage.setIcon(null);
-    }
-}
+			// Set the loaded icon to the JLabel
+			activeCreatureImage.setIcon(icon);
+		} else {
+			// If no active creature, set the JLabel to null or a default image
+			activeCreatureImage.setIcon(null);
+		}
+	}
+	
+	/**
+	 * This method finds the imageIcon to be used in the function.
+	 *
+	 * @param path The folder path where the imageIcon is to be found.
+	 */
 
-private ImageIcon createImageIcon(String path) {
-    // Use ClassLoader to load the icon from the classpath
-    java.net.URL imgUrl = getClass().getResource(path);
+	private ImageIcon createImageIcon(String path) {
+		// Use ClassLoader to load the icon from the classpath
+		java.net.URL imgUrl = getClass().getResource(path);
 
-    // Check if the resource was found
-    if (imgUrl != null) {
-        return new ImageIcon(imgUrl);
-    } else {
-        // If the resource was not found, you can provide a default icon or handle the situation accordingly
-        System.err.println("Resource not found: " + path);
-        return null;
-    }
-}
+		// Check if the resource was found
+		if (imgUrl != null) {
+			return new ImageIcon(imgUrl);
+		} else {
+			// If the resource was not found, you can provide a default icon or handle the situation accordingly
+			System.err.println("Resource not found: " + path);
+			return null;
+		}
+	}
  
     /**
      * This method populates the text box with the active creature.
@@ -217,7 +233,7 @@ private ImageIcon createImageIcon(String path) {
     
     
     /**
-     * This method populated the combobox with the creatures from the inventory.
+     * This method populates the combobox with the creatures from the inventory.
      * 
      * @param inventory The inventory containing the user's creatures.
      */

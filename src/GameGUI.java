@@ -120,11 +120,11 @@ public class GameGUI extends JFrame
     }
 
     /**
-     * Displays the evolution screen using the EvolutionScreenPanel.
+     * Displays the evolution screen using the EvolutionScreenFrame.
      */
     public void displayEvolutionScreen() 
     {
-        EvolutionScreenPanel evolutionScreenPanel = new EvolutionScreenPanel(inventory);
+        EvolutionScreenFrame evolutionScreenPanel = new EvolutionScreenFrame(inventory);
     }
 
     /**
